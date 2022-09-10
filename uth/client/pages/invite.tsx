@@ -58,7 +58,7 @@ const Invite: NextPage = () => {
         <footer className="flex justify-between items-center py-12 h-12">
           <div className="w-48">
             <Image
-              src="/assets/digital-story.svg"
+              src="/digital-story.svg"
               alt="digital-story-logo"
               width="100%"
               height="100%"
@@ -69,7 +69,7 @@ const Invite: NextPage = () => {
 
           <div className="w-16">
             <Image
-              src="/assets/uth-logo.png"
+              src="/uth-logo.png"
               alt="digital-story-logo"
               width="100%"
               height="100%"

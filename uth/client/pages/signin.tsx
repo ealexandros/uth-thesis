@@ -34,7 +34,7 @@ const Login: NextPage = () => {
         <div className="mt-24 mx-auto w-4/6 space-y-16 lg:space-y-28 2xl:space-y-36 md:w-3/6 md:m-auto">
           <div className="w-5/6 lg:w-4/6 m-auto">
             <Image
-              src="/assets/uth-logo-medium.png"
+              src="/uth-logo-medium.png"
               alt="uth-logo"
               width="100%"
               height="100%"
@@ -77,7 +77,7 @@ const Login: NextPage = () => {
 
         <div className="absolute w-36 h-20 bottom-4 right-6 md:hidden">
           <Image
-            src="/assets/digital-story.svg"
+            src="/digital-story.svg"
             alt="digital-story-logo"
             className="object-contain "
             width="100%"
@@ -99,7 +99,7 @@ const Login: NextPage = () => {
 
         <div className="absolute bottom-6 right-6 w-36 h-20">
           <Image
-            src="/assets/digital-story.svg"
+            src="/digital-story.svg"
             alt="digital-story-logo"
             width="100%"
             height="100%"

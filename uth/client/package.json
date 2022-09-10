@@ -8,9 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "prettier": "prettier --loglevel warn --write .",
-    "prepare": "husky install",
-    "pre-commit": "yarn format",
-    "format": "yarn prettier && yarn lint --fix"
+    "format": "yarn prettier && yarn lint --fix",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run --record false"
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
@@ -32,7 +32,6 @@
     "eslint": "8.23.0",
     "eslint-config-next": "12.3.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "husky": "^8.0.1",
     "postcss": "^8.4.16",
     "prettier": "^2.7.1",
     "tailwindcss": "^3.1.8",
