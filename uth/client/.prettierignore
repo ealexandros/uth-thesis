@@ -1,0 +1,12 @@
+.next/
+.vscode/
+node_modules/
+
+.env
+.npmrc
+.nvmrc
+.prettier
+.prettierignore
+.gitignore
+
+
