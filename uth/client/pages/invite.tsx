@@ -1,6 +1,7 @@
 import { LogoutOutlined } from "@ant-design/icons";
 import { message } from "antd";
 import { NextPage } from "next";
+import Head from "next/head";
 import Image from "next/image";
 import { QRCodeSVG } from "qrcode.react";
 import { useAuth } from "../contexts/authentication";
@@ -21,6 +22,10 @@ const Invite: NextPage = () => {
 
   return (
     <Authorization mustAuth={true}>
+      <Head>
+        <title>University of Thessaly - Invitation Code</title>
+      </Head>
+
       <div className="h-screen w-screen px-12 flex flex-col overflow-hidden">
         <header className="py-4">
           <a

@@ -19,7 +19,7 @@ const AuthContext = React.createContext<AuthContextProps>({
 });
 
 type AuthProviderProps = {
-  children: React.ReactElement;
+  children: React.ReactElement | React.ReactElement[];
 };
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
