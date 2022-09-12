@@ -9,3 +9,5 @@ Example body
 }
 `
 
+* `POST` /connections/invitation
+

@@ -12,6 +12,7 @@ import (
 func migrate(db *gorm.DB) error {
 	return db.AutoMigrate(
 		&entities.User{},
+		&entities.Session{},
 	)
 }
 

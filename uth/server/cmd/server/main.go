@@ -2,14 +2,14 @@ package main
 
 import (
 	"context"
+	"github.com/ealexandros/digital-story/uth/server/acapy"
 	"github.com/ealexandros/digital-story/uth/server/controllers"
 	"github.com/ealexandros/digital-story/uth/server/db"
+	"github.com/ealexandros/digital-story/uth/server/server"
 	"github.com/ealexandros/digital-story/uth/server/services"
 	"github.com/labstack/echo/v4"
-	"log"
-
-	"github.com/ealexandros/digital-story/uth/server/server"
 	"go.uber.org/fx"
+	"log"
 )
 
 func main() {
@@ -18,8 +18,9 @@ func main() {
 		db.Module,
 		controllers.Module,
 		services.Module,
+		acapy.Module,
 		fx.Invoke(func(e *echo.Echo) error {
-			if err := e.Start(":3000"); err != nil {
+			if err := e.Start(":4000"); err != nil {
 				return err
 			}
 

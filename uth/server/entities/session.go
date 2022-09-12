@@ -1,7 +1,7 @@
 package entities
 
-type User struct {
+type Session struct {
 	ID           int    `gorm:"primaryKey"`
-	Username     string `gorm:"connection_id"`
 	ConnectionID string `gorm:"connection_id"`
+	State        string `gorm:"state"`
 }

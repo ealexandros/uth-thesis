@@ -10,6 +10,9 @@ import (
 
 func DummyAuth(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
+		if c.Request().Method == http.MethodOptions {
+			return next(c)
+		}
 		if c.Request().URL.String() == "/login" ||
 			strings.HasPrefix(c.Request().URL.String(), "/webhooks/topic") {
 			return next(c)
