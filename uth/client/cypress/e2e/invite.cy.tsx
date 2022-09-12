@@ -1,3 +1,5 @@
+import { interceptors } from "../interceptors";
+
 describe("Unauthenticated", () => {
   it("should redirect into /signin ", () => {
     cy.visit("http://localhost:3000/invite");
@@ -7,16 +9,21 @@ describe("Unauthenticated", () => {
 
 describe("Authenticated", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:3000/signi");
+    interceptors.signin();
+    cy.visit("http://localhost:3000/signin");
 
     cy.get("input").type("alice");
     cy.get("button").click();
+
+    cy.wait("@signin").then((inter) => {
+      expect(inter.response?.statusCode).to.be.equal(200);
+    });
 
     cy.url().should("equal", "http://localhost:3000/invite");
   });
 
   it("should render page", () => {
-    cy.contains("Hey Alice 👋");
+    cy.contains("alice");
   });
 
   it("should copy the connection string", () => {

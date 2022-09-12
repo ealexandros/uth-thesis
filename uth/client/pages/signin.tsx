@@ -3,12 +3,25 @@ import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { FormEvent, useState } from "react";
+import { useLoginMutation } from "../api/login";
 import { useAuth } from "../contexts/authentication";
 import { RouteFactory } from "../router/route-factory";
 
 const Login: NextPage = () => {
   const { setUser } = useAuth();
   const router = useRouter();
+
+  const { mutate } = useLoginMutation({
+    onSuccess() {
+      setUser({
+        username,
+      });
+      router.push(RouteFactory.Invite);
+    },
+    onError(error) {
+      setError(error?.message || "External Error");
+    },
+  });
 
   const [username, setUsername] = useState("");
   const [error, setError] = useState("");
@@ -20,11 +33,7 @@ const Login: NextPage = () => {
       setError("Empty value");
       return;
     }
-
-    setUser({
-      username,
-    });
-    router.push(RouteFactory.Invite);
+    mutate(username);
   };
 
   return (
@@ -74,7 +83,7 @@ const Login: NextPage = () => {
 
               <button
                 type="submit"
-                className="bg-primary flex items-center space-x-2 text-white rounded-md shadow-md text-sm font-light py-2 px-6 w-full md:w-auto"
+                className="bg-primary flex items-center text-white rounded-md shadow-md text-sm font-light py-2 px-6 w-full md:w-auto"
               >
                 Login
               </button>
