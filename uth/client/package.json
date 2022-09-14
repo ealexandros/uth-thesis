@@ -11,7 +11,8 @@
     "format": "yarn prettier && yarn lint --fix",
     "cy:open": "cypress open",
     "cy:run": "cypress run --record false",
-    "test": "jest --watch"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
