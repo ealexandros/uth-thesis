@@ -14,4 +14,11 @@ export const interceptors = {
       })
       .as("signin");
   },
+  invite: () => {
+    return cy
+      .intercept("POST", `${API_BASE_URL}/connections/invitation`, {
+        invitationUrl: "testing123",
+      })
+      .as("invite");
+  },
 };

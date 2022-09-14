@@ -10,6 +10,8 @@ describe("Unauthenticated", () => {
 describe("Authenticated", () => {
   beforeEach(() => {
     interceptors.signin();
+    interceptors.invite();
+
     cy.visit("http://localhost:3000/signin");
 
     cy.get("input").type("alice");
@@ -27,6 +29,10 @@ describe("Authenticated", () => {
   });
 
   it("should copy the connection string", () => {
+    cy.wait("@invite").then((inter) => {
+      expect(inter.response?.statusCode).to.be.equal(200);
+    });
+
     cy.get("main > section > p").click();
 
     cy.window()
@@ -39,6 +45,10 @@ describe("Authenticated", () => {
   });
 
   it("should logout", () => {
+    cy.wait("@invite").then((inter) => {
+      expect(inter.response?.statusCode).to.be.equal(200);
+    });
+
     cy.get("header > a").click();
     cy.url().should("be.equal", "http://localhost:3000/signin");
   });
