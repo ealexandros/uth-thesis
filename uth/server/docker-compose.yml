@@ -19,6 +19,7 @@ services:
       ACAPY_WALLET_TYPE: 'indy'
       ACAPY_WALLET_NAME: 'uth-wallet'
       ACAPY_WALLET_KEY: 'secret-wallet-key'
+      ACAPY_WALLET_SEED: ${ACAPY_AGENT_WALLET_SEED}
       # Admin
       ACAPY_ADMIN_INSECURE_MODE: "true"
       # Invites
@@ -26,7 +27,8 @@ services:
       ACAPY_AUTO_ACCEPT_REQUESTS: "true"
     command:  [
       "-c",
-      " sleep 5; \
+      "curl -d '{\"seed\":\"${ACAPY_AGENT_WALLET_SEED}\", \"role\":\"TRUST_ANCHOR\", \"alias\":\"UTH\"}' -X POST ${DOCKER_GATEWAY_HOST-localhost}:9000/register; \
+       sleep 5; \
         aca-py start \
         -it http '0.0.0.0' ${ACAPY_AGENT_PORT} \
         -ot http \
