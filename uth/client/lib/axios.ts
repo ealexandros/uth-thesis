@@ -8,6 +8,7 @@ axios.interceptors.request.use((config: AxiosRequestConfig) => {
   config.headers = {
     Accept: "application/json",
     "Content-type": "application/json",
+    ...config.headers,
   };
 
   return config;
@@ -18,6 +19,6 @@ axios.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    return Promise.reject(error.response.data);
+    return Promise.reject(error);
   }
 );

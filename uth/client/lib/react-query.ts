@@ -1,6 +1,22 @@
 import { AxiosResponse } from "axios";
-import { QueryClient, UseMutationOptions, UseQueryOptions } from "react-query";
+import {
+  DefaultOptions,
+  QueryClient,
+  UseMutationOptions,
+  UseQueryOptions,
+} from "react-query";
 import { PromiseValue } from "type-fest";
+
+const config: DefaultOptions = {
+  mutations: {
+    retry: 0,
+  },
+  queries: {
+    refetchOnWindowFocus: false,
+    useErrorBoundary: true,
+    retry: 0,
+  },
+};
 
 export type ExtractFnReturnType<FnType extends (...args: any) => any> =
   PromiseValue<ReturnType<FnType>>;
@@ -17,4 +33,4 @@ export type MutationConfig<MutationFnType extends (...args: any) => any> =
     Parameters<MutationFnType>[0]
   >;
 
-export const queryClient = new QueryClient();
+export const queryClient = new QueryClient({ defaultOptions: config });

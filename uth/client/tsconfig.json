@@ -19,7 +19,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "cypress/e2e/index.cy.tss"
+    "cypress/e2e/index.cy.tss",
+    "tsconfig.jest.json"
   ],
   "exclude": ["node_modules"]
 }

@@ -7,7 +7,7 @@ import { useLoginMutation } from "../api/login";
 import { useAuth } from "../contexts/authentication";
 import { RouteFactory } from "../router/route-factory";
 
-const Login: NextPage = () => {
+const SignIn: NextPage = () => {
   const { setUser } = useAuth();
   const router = useRouter();
 
@@ -19,7 +19,7 @@ const Login: NextPage = () => {
       router.push(RouteFactory.Invite);
     },
     onError(error) {
-      setError(error?.message || "External Error");
+      setError(error?.response?.data.message || "External Error");
     },
   });
 
@@ -51,6 +51,7 @@ const Login: NextPage = () => {
               <Image
                 src="/uth-logo-medium.png"
                 alt="uth-logo"
+                priority={true}
                 width="100%"
                 height="100%"
                 layout="responsive"
@@ -128,4 +129,4 @@ const Login: NextPage = () => {
   );
 };
 
-export default Login;
+export default SignIn;
