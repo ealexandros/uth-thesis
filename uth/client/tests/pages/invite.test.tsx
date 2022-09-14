@@ -5,11 +5,11 @@ import Invite from "../../pages/invite";
 import { NextPage } from "next";
 import { useFetchConnectionQuery } from "../../api/fetchInvitation";
 
-jest.mock("../../hocs/withAuth", () => ({
-  withAuth: jest.fn((Page: NextPage) => {
+jest.mock("../../hocs/withAuth", () =>
+  jest.fn((Page: NextPage) => {
     return (props: any) => <Page {...props} />;
-  }),
-}));
+  })
+);
 
 jest.mock("../../api/fetchInvitation");
 const mockedFetchConnection = useFetchConnectionQuery as jest.Mock<any>;

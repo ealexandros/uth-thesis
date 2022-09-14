@@ -93,4 +93,4 @@ const Invite: NextPage = () => {
   );
 };
 
-export default Invite;
+export default withAuth(Invite);
