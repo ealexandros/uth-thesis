@@ -34,6 +34,8 @@ services:
         -ot http \
         --admin '0.0.0.0' ${ACAPY_ADMIN_PORT}",
     ]
+    volumes:
+      - aca-py:/home/indy/.indy_client/wallet
     extra_hosts:
       - "localhost:host-gateway"
   db:
