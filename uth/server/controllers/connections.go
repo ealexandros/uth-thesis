@@ -10,11 +10,20 @@ import (
 func RegisterConnections(e *echo.Echo, service *services.Connections) {
 	r := connections{service: service}
 	e.POST("/connections/invitation", r.createInvitation)
-
+	e.GET("/connections", r.getConnections)
 }
 
 type connections struct {
 	service *services.Connections
+}
+
+func (r connections) getConnections(c echo.Context) error {
+	resp, err := r.service.GetConnections()
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error()).SetInternal(err)
+	}
+
+	return c.JSON(http.StatusOK, resp)
 }
 
 func (r connections) createInvitation(c echo.Context) error {

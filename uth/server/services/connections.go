@@ -45,6 +45,28 @@ func (s *Connections) CreateInvitation(username string) (string, error) {
 	return resp.InvitationURL, nil
 }
 
+func (s *Connections) GetConnections() ([]Connection, error) {
+	conn, err := s.acapy.QueryConnections(nil)
+	if err != nil {
+		return nil, err
+	}
+
+	var response []Connection
+	for _, c := range conn {
+		var user entities.User
+		if err := s.db.Model(&entities.User{}).Where("connection_id = ?", c.ConnectionID).First(&user).Error; err != nil {
+			return nil, err
+		}
+
+		response = append(response, Connection{
+			Username:     user.Username,
+			ConnectionID: user.ConnectionID,
+		})
+	}
+
+	return response, nil
+}
+
 func (s *Connections) HandleWebhook(event acapy.Connection) {
 	switch event.RFC23State {
 	case "response-sent":
