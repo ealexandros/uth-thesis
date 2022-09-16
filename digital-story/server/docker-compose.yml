@@ -1,7 +1,7 @@
 version: '3.5'
 
 services:
-  john-agent:
+  agent:
     image: bcgovimages/aries-cloudagent:py36-1.16-1_1.0.0-rc0
     entrypoint: /bin/bash
     ports:
@@ -30,6 +30,7 @@ services:
       ACAPY_AUTO_RESPOND_CREDENTIAL_PROPOSAL: "true"
       ACAPY_AUTO_RESPOND_CREDENTIAL_OFFER: "true"
       ACAPY_AUTO_RESPOND_CREDENTIAL_REQUEST: "true"
+      ACAPY_AUTO_STORE_CREDENTIAL: "true"
       ACAPY_DEBUG_CREDENTIALS: "true"
     command:  [
       "-c",
@@ -45,5 +46,5 @@ services:
       - "localhost:host-gateway"
 volumes:
   aca-py:
-    name: '${ACAPY_AGENT_LABEL}-acapy'
+    name: '${ACAPY_AGENT_NAME}-acapy'
     driver: local
