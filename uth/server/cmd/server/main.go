@@ -2,7 +2,9 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"github.com/ealexandros/digital-story/uth/server/acapy"
+	"github.com/ealexandros/digital-story/uth/server/config"
 	"github.com/ealexandros/digital-story/uth/server/controllers"
 	"github.com/ealexandros/digital-story/uth/server/db"
 	"github.com/ealexandros/digital-story/uth/server/server"
@@ -19,8 +21,9 @@ func main() {
 		controllers.Module,
 		services.Module,
 		acapy.Module,
-		fx.Invoke(func(e *echo.Echo) error {
-			if err := e.Start(":4000"); err != nil {
+		config.Module,
+		fx.Invoke(func(e *echo.Echo, c config.Config) error {
+			if err := e.Start(fmt.Sprintf(":%s", c.ServerPort)); err != nil {
 				return err
 			}
 

@@ -1,6 +1,8 @@
 package acapy
 
 import (
+	"fmt"
+	"github.com/ealexandros/digital-story/uth/server/config"
 	"github.com/flower-corp/lotusdb"
 	"github.com/ldej/go-acapy-client"
 	"go.uber.org/fx"
@@ -65,6 +67,6 @@ var Module = fx.Options(
 	fx.Invoke(RegisterStudentPass, RegisterStudentDegree),
 )
 
-func New() *acapy.Client {
-	return acapy.NewClient("http://localhost:8010")
+func New(c config.Config) *acapy.Client {
+	return acapy.NewClient(fmt.Sprintf("http://%s:%s", c.AcapyAdminHost, c.AcapyAdminPort))
 }

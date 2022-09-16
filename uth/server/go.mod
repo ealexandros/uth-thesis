@@ -12,6 +12,11 @@ require (
 )
 
 require (
+	github.com/caarlos0/env/v6 v6.10.1 // indirect
+	github.com/joho/godotenv v1.4.0 // indirect
+)
+
+require (
 	github.com/flower-corp/lotusdb v1.0.0
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect

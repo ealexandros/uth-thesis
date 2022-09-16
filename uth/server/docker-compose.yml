@@ -10,10 +10,10 @@ services:
     environment:
       # Indy
       # Agent networking
-      ACAPY_ENDPOINT: 'http://localhost:${ACAPY_AGENT_PORT}'
-      ACAPY_WEBHOOK_URL: 'http://${DOCKER_GATEWAY_HOST:-localhost}:${ACAPY_WEBHOOK_PORT}/webhooks'
+      ACAPY_ENDPOINT: 'http://${ACAPY_AGENT_HOST}:${ACAPY_AGENT_PORT}'
+      ACAPY_WEBHOOK_URL: 'http://${DOCKER_GATEWAY_HOST:-localhost}:${SERVER_PORT}/webhooks'
       ACAPY_OUTBOUND_TRANSPORT: 'http'
-      ACAPY_GENESIS_URL: 'http://${DOCKER_GATEWAY_HOST:-localhost}:9000/genesis'
+      ACAPY_GENESIS_URL: '${LEDGER_URL}/genesis'
       # Wallet
       ACAPY_AUTO_PROVISION: "true"
       ACAPY_WALLET_TYPE: 'indy'
@@ -33,7 +33,7 @@ services:
       ACAPY_DEBUG_CREDENTIALS: "true"
     command:  [
       "-c",
-      "curl -d '{\"seed\":\"${ACAPY_AGENT_WALLET_SEED}\", \"role\":\"TRUST_ANCHOR\", \"alias\":\"UTH\"}' -X POST ${DOCKER_GATEWAY_HOST-localhost}:9000/register; \
+      "curl -d '{\"seed\":\"${ACAPY_AGENT_WALLET_SEED}\", \"role\":\"TRUST_ANCHOR\", \"alias\":\"UTH\"}' -X POST ${LEDGER_URL}/register; \
        sleep 5; \
         aca-py start \
         -it http '0.0.0.0' ${ACAPY_AGENT_PORT} \
@@ -48,14 +48,15 @@ services:
     container_name: postgres_container
     image: postgres
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-uth}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secret}
-      POSTGRES_DB: 'uth-ssi'
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DATABASE}
       PGDATA: /data/postgres
     volumes:
       - db:/data/postgres
     ports:
-      - "5432:5432"
+      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
+    command: -p ${POSTGRES_PORT}
     restart: unless-stopped
 volumes:
   db:
