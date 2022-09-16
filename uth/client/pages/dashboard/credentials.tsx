@@ -4,7 +4,7 @@ import { NextPageWithLayout } from "../../types";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { BsPersonCircle } from "react-icons/bs";
 import { TbCertificate } from "react-icons/tb";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFetchConnectionsQuery } from "../../api/dashboard/fetchConnections";
 import { Spinner } from "../../components/Elements/Spinner";
 import { useRouter } from "next/router";
@@ -24,12 +24,16 @@ const Credentials: NextPageWithLayout = () => {
   });
   const { data, isLoading } = useFetchConnectionsQuery();
 
-  const { connection_id } = router.query;
-  const unwrapConnectionId =
-    connection_id && !Array.isArray(connection_id) ? connection_id : "";
-  const [connectionId, setConnectionId] = useState<string>(
-    unwrapConnectionId || ""
-  );
+  const [connectionId, setConnectionId] = useState<string>("");
+
+  useEffect(() => {
+    const { connection_id } = router.query;
+    const unwrapConnectionId =
+      connection_id && !Array.isArray(connection_id) ? connection_id : "";
+
+    data?.some((el) => el.connection_id === unwrapConnectionId) &&
+      setConnectionId(unwrapConnectionId);
+  });
 
   const appendDegreeCredential = () => {
     if (!connectionId) {
