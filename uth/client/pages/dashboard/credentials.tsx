@@ -9,12 +9,19 @@ import { useFetchConnectionsQuery } from "../../api/dashboard/fetchConnections";
 import { Spinner } from "../../components/Elements/Spinner";
 import { useRouter } from "next/router";
 import { useCreateDegreeCredential } from "../../api/dashboard/createDegreeCredential";
+import { message } from "antd";
 
 const Credentials: NextPageWithLayout = () => {
   const router = useRouter();
 
-  const { mutate, isLoading: isCredentialLoading } =
-    useCreateDegreeCredential();
+  const { mutate } = useCreateDegreeCredential({
+    onSuccess() {
+      message.success("Credential was provided.");
+    },
+    onError() {
+      message.error("Credential was not provided.");
+    },
+  });
   const { data, isLoading } = useFetchConnectionsQuery();
 
   const { connection_id } = router.query;
@@ -25,10 +32,14 @@ const Credentials: NextPageWithLayout = () => {
   );
 
   const appendDegreeCredential = () => {
+    if (!connectionId) {
+      message.warning("Select a connection.");
+      return;
+    }
     mutate(connectionId);
   };
 
-  if (isLoading || isCredentialLoading) {
+  if (isLoading) {
     return <Spinner wrapperClassName="bg-dark" />;
   }
 
