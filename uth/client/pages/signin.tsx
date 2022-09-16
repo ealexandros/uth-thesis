@@ -3,7 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { FormEvent, useState } from "react";
-import { useLoginMutation } from "../api/login";
+import { useLoginMutation } from "../api/misc/login";
 import { useAuth } from "../contexts/authentication";
 import { RouteFactory } from "../router/route-factory";
 
@@ -16,7 +16,7 @@ const SignIn: NextPage = () => {
       setUser({
         username,
       });
-      router.push(RouteFactory.Invite);
+      router.push(RouteFactory.Connection);
     },
     onError(error) {
       setError(error?.response?.data.message || "External Error");
@@ -84,7 +84,7 @@ const SignIn: NextPage = () => {
 
               <button
                 type="submit"
-                className="bg-primary flex items-center text-white rounded-md shadow-md text-sm font-light py-2 px-6 w-full md:w-auto"
+                className="bg-primary flex justify-center items-center text-white rounded-md shadow-md text-sm font-light py-2 px-6 w-full md:w-auto"
               >
                 Login
               </button>

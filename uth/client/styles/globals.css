@@ -10,3 +10,11 @@ body,
 html {
   font-family: "Roboto", sans-serif;
 }
+
+a {
+  @apply hover:text-current;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}

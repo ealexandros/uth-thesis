@@ -1,9 +1,9 @@
 import { expect } from "@jest/globals";
 
 import { render } from "@testing-library/react";
-import Invite from "../../pages/invite";
+import Invite from "../../pages/connection";
 import { NextPage } from "next";
-import { useFetchConnectionQuery } from "../../api/fetchInvitation";
+import { useFetchConnectionQuery } from "../../api/misc/fetchInvitation";
 
 jest.mock("../../hocs/withAuth", () =>
   jest.fn((Page: NextPage) => {
@@ -14,7 +14,7 @@ jest.mock("../../hocs/withAuth", () =>
 jest.mock("../../api/fetchInvitation");
 const mockedFetchConnection = useFetchConnectionQuery as jest.Mock<any>;
 
-describe("Invite", () => {
+describe("Invite Page", () => {
   beforeEach(() => {
     mockedFetchConnection.mockImplementation(() => ({}));
   });

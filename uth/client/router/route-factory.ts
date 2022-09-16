@@ -1,4 +1,11 @@
+const dashboardPrefix = "/dashboard";
+
 export const RouteFactory = {
   SignIn: "/signin",
-  Invite: "/invite",
+  Connection: "/connection",
+  Dashboard: {
+    Index: dashboardPrefix,
+    Connections: `${dashboardPrefix}/connections`,
+    Credentials: `${dashboardPrefix}/credentials`,
+  },
 };

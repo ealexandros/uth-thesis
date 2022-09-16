@@ -7,6 +7,7 @@ import { AuthProvider } from "../contexts/authentication";
 import { QueryClientProvider } from "react-query";
 import { queryClient } from "../lib/react-query";
 import { ErrorBoundary, FallbackProps } from "react-error-boundary";
+import { NextPageWithLayout } from "../types";
 
 const ErrorFallback = ({ error }: FallbackProps) => (
   <div className="w-screen h-screen flex flex-col justify-center items-center space-y-2">
@@ -22,7 +23,13 @@ const ErrorFallback = ({ error }: FallbackProps) => (
   </div>
 );
 
-function MyApp({ Component, pageProps }: AppProps) {
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+};
+
+function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+  const getLayout = Component.getLayout ?? ((page) => page);
+
   return (
     <AuthProvider>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
@@ -31,7 +38,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             <title>University of Thessaly</title>
             <link rel="shortcut icon" href="/uth-logo.png?v=1.0" />
           </Head>
-          <Component {...pageProps} />
+          {getLayout(<Component {...pageProps} />)}
         </QueryClientProvider>
       </ErrorBoundary>
     </AuthProvider>

@@ -3,10 +3,10 @@ import { RouteFactory } from "../router/route-factory";
 import { useIsAuthenticated } from "../contexts/authentication";
 import { isBrowser } from "../utils/window";
 
-const withAuth = (
-  Page: NextPage,
+const withAuth = <T,>(
+  Page: NextPage<T>,
   location: string = RouteFactory.SignIn
-): NextPage => {
+): NextPage<T> => {
   return (props: any) => {
     const isAuth = useIsAuthenticated();
 

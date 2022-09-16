@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
-import { useAuth } from "../contexts/authentication";
-import { axios } from "../lib/axios";
+import { useAuth } from "../../contexts/authentication";
+import { axios } from "../../lib/axios";
 
 type ConnectionResponse = {
   invitationUrl: string;

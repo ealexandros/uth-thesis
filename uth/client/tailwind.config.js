@@ -9,9 +9,12 @@ module.exports = {
       colors: {
         primary: "#B03931",
         light: "#E9E9E9",
+        dark: "#272932",
+        "dark-overlay": "#30323D",
+        "dark-accent": "#FE5F55",
       },
-      backgroundImage: {
-        qrPlaceholder: "url(/public/assets/qr-placeholder.svg)",
+      fontSize: {
+        "2xs": "0.5rem",
       },
     },
   },

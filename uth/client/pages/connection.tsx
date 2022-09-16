@@ -4,12 +4,12 @@ import { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { QRCodeSVG } from "qrcode.react";
-import { useFetchConnectionQuery } from "../api/fetchInvitation";
-import { Spinner } from "../components/Spinner";
+import { useFetchConnectionQuery } from "../api/misc/fetchInvitation";
+import { Spinner } from "../components/Elements/Spinner";
 import { useAuth } from "../contexts/authentication";
 import withAuth from "../hocs/withAuth";
 
-const Invite: NextPage = () => {
+const Connection: NextPage = () => {
   const { user } = useAuth();
   const { data, isLoading } = useFetchConnectionQuery();
 
@@ -93,4 +93,4 @@ const Invite: NextPage = () => {
   );
 };
 
-export default withAuth(Invite);
+export default withAuth(Connection);
