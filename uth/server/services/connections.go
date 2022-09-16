@@ -51,20 +51,25 @@ func (s *Connections) GetConnections() ([]Connection, error) {
 		return nil, err
 	}
 
-	var response []Connection
+	var conns []string
 	for _, c := range conn {
-		var user entities.User
-		if err := s.db.Model(&entities.User{}).Where("connection_id = ?", c.ConnectionID).First(&user).Error; err != nil {
-			return nil, err
-		}
+		conns = append(conns, c.ConnectionID)
+	}
 
-		response = append(response, Connection{
-			Username:     user.Username,
-			ConnectionID: user.ConnectionID,
+	var users []entities.User
+	if err := s.db.Where("connection_id IN ?", conns).Find(&users).Error; err != nil {
+		return nil, err
+	}
+
+	var resp []Connection
+	for _, u := range users {
+		resp = append(resp, Connection{
+			Username:     u.Username,
+			ConnectionID: u.ConnectionID,
 		})
 	}
 
-	return response, nil
+	return resp, nil
 }
 
 func (s *Connections) HandleWebhook(event acapy.Connection) {

@@ -6,12 +6,12 @@ import (
 	"net/http"
 )
 
-func RegisterCredentails(e *echo.Echo, s *services.Credentials) {
+func RegisterCredentials(e *echo.Echo, s *services.Credentials) {
 	r := credentials{
 		service: s,
 	}
 
-	e.POST("/credentials/degree/:connID", r.issueDegree)
+	e.POST("admin/credentials/degree/:connID", r.issueDegree)
 }
 
 type credentials struct {

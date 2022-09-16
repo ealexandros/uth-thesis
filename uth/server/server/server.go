@@ -14,7 +14,8 @@ func DummyAuth(next echo.HandlerFunc) echo.HandlerFunc {
 			return next(c)
 		}
 		if c.Request().URL.String() == "/login" ||
-			strings.HasPrefix(c.Request().URL.String(), "/webhooks/topic") {
+			strings.HasPrefix(c.Request().URL.String(), "/webhooks/topic") ||
+			strings.HasPrefix(c.Request().URL.String(), "/admin") {
 			return next(c)
 		}
 

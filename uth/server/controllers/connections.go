@@ -10,7 +10,7 @@ import (
 func RegisterConnections(e *echo.Echo, service *services.Connections) {
 	r := connections{service: service}
 	e.POST("/connections/invitation", r.createInvitation)
-	e.GET("/connections", r.getConnections)
+	e.GET("/admin/connections", r.getConnections)
 }
 
 type connections struct {
