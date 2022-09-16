@@ -22,6 +22,7 @@ services:
       # Admin
       ACAPY_ADMIN_INSECURE_MODE: "true"
       # Invites
+      ACAPY_LABEL: ${ACAPY_AGENT_LABEL}
       ACAPY_INVITE_LABEL: ${ACAPY_AGENT_LABEL}
       ACAPY_AUTO_ACCEPT_REQUESTS: "true"
       ACAPY_PUBLIC_INVITES: "true"

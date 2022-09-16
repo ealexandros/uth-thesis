@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"github.com/ealexandros/digital-story/uth/server/acapy"
 	"github.com/ealexandros/digital-story/uth/server/config"
+	"github.com/ealexandros/digital-story/uth/server/controllers"
 	"github.com/ealexandros/digital-story/uth/server/server"
+	"github.com/ealexandros/digital-story/uth/server/services"
 	"github.com/labstack/echo/v4"
 	"go.uber.org/fx"
 	"log"
@@ -13,6 +15,8 @@ import (
 
 func main() {
 	app := fx.New(
+		controllers.Module,
+		services.Module,
 		server.Module,
 		acapy.Module,
 		config.Module,
