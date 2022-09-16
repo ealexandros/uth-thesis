@@ -42,3 +42,5 @@ require (
 )
 
 replace go.etcd.io/bbolt => github.com/flower-corp/bbolt v1.3.7-0.20220315040627-32fed02add8f
+
+replace github.com/ldej/go-acapy-client => github.com/koioannis/go-acapy-client v0.0.0-20220915191722-b46f6b679379

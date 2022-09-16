@@ -25,6 +25,12 @@ services:
       # Invites
       ACAPY_INVITE_LABEL: 'UTH'
       ACAPY_AUTO_ACCEPT_REQUESTS: "true"
+      ACAPY_PUBLIC_INVITES: "true"
+      # Credentials
+      ACAPY_AUTO_RESPOND_CREDENTIAL_PROPOSAL: "true"
+      ACAPY_AUTO_RESPOND_CREDENTIAL_OFFER: "true"
+      ACAPY_AUTO_RESPOND_CREDENTIAL_REQUEST: "true"
+      ACAPY_DEBUG_CREDENTIALS: "true"
     command:  [
       "-c",
       "curl -d '{\"seed\":\"${ACAPY_AGENT_WALLET_SEED}\", \"role\":\"TRUST_ANCHOR\", \"alias\":\"UTH\"}' -X POST ${DOCKER_GATEWAY_HOST-localhost}:9000/register; \
@@ -54,4 +60,7 @@ services:
 volumes:
   db:
     name: 'uth-postgres'
+    driver: local
+  aca-py:
+    name: 'uth-acapy'
     driver: local

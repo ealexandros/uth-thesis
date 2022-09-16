@@ -6,4 +6,5 @@ var Module = fx.Invoke(
 	RegisterAuth,
 	RegisterConnections,
 	RegisterWebHooks,
+	RegisterCredentails,
 )
