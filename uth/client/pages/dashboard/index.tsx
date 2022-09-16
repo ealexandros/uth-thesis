@@ -4,6 +4,7 @@ import { NextPageWithLayout } from "../../types";
 import { BsFillPinFill, BsPlusLg } from "react-icons/bs";
 import { TbPlugConnected, TbCertificate } from "react-icons/tb";
 import { RouteFactory } from "../../router/route-factory";
+import Link from "next/link";
 
 const Dashboard: NextPageWithLayout = () => {
   return (
@@ -20,17 +21,20 @@ const Dashboard: NextPageWithLayout = () => {
         </div>
 
         <div className="grid grid-cols-2 justify-items-center gap-y-8 sm:flex sm:space-x-8">
-          <a
-            href={RouteFactory.Dashboard.Connections}
-            className="w-32 h-32 rounded-lg shadow-lg cursor-pointer bg-dark-overlay flex flex-col justify-center items-center space-y-6 lg:w-40 lg:h-40"
-          >
-            <TbPlugConnected size="4em" />
-            <span>Connections</span>
-          </a>
-          <a className="w-32 h-32 rounded-lg shadow-lg cursor-pointer bg-dark-overlay flex flex-col justify-center items-center space-y-6 lg:w-40 lg:h-40">
-            <TbCertificate size="4em" />
-            <span>Certificates</span>
-          </a>
+          <Link href={RouteFactory.Dashboard.Connections}>
+            <div className="w-32 h-32 rounded-lg shadow-lg cursor-pointer bg-dark-overlay flex flex-col justify-center items-center space-y-6 lg:w-40 lg:h-40">
+              <TbPlugConnected size="4em" />
+              <span>Connections</span>
+            </div>
+          </Link>
+
+          <Link href={RouteFactory.Dashboard.Credentials}>
+            <div className="w-32 h-32 rounded-lg shadow-lg cursor-pointer bg-dark-overlay flex flex-col justify-center items-center space-y-6 lg:w-40 lg:h-40">
+              <TbCertificate size="4em" />
+              <span>Certificates</span>
+            </div>
+          </Link>
+
           <div className="w-32 h-32 rounded-lg cursor-pointer border-8 border-dashed border-dark-overlay flex items-center justify-center lg:w-40 lg:h-40">
             <BsPlusLg size="1.5em" className="opacity-25" />
           </div>

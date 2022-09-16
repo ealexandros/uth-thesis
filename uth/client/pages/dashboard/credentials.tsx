@@ -70,8 +70,8 @@ const Credentials: NextPageWithLayout = () => {
               <option disabled={true} value="">
                 Choose an Option..
               </option>
-              {data?.map((connection) => (
-                <option value={connection.connection_id}>
+              {data?.map((connection, index) => (
+                <option key={index} value={connection.connection_id}>
                   {connection.username}
                 </option>
               ))}

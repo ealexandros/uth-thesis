@@ -8,6 +8,7 @@ import { QueryClientProvider } from "react-query";
 import { queryClient } from "../lib/react-query";
 import { ErrorBoundary, FallbackProps } from "react-error-boundary";
 import { NextPageWithLayout } from "../types";
+import NextNProgress from "nextjs-progressbar";
 
 const ErrorFallback = ({ error }: FallbackProps) => (
   <div className="w-screen h-screen flex flex-col justify-center items-center space-y-2">
@@ -39,6 +40,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
             <link rel="shortcut icon" href="/uth-logo.png?v=1.0" />
           </Head>
           {getLayout(<Component {...pageProps} />)}
+          <NextNProgress color="#FE5F55" height={2} />
         </QueryClientProvider>
       </ErrorBoundary>
     </AuthProvider>

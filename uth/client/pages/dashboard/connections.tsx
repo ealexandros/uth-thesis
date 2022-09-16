@@ -94,7 +94,11 @@ const Connections: NextPageWithLayout = () => {
               </THead>
               <TBody>
                 {data?.map((connection, index) => (
-                  <TableRows index={index} connection={connection} />
+                  <TableRows
+                    key={index}
+                    index={index}
+                    connection={connection}
+                  />
                 ))}
               </TBody>
             </Table>

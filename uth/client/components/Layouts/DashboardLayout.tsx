@@ -14,6 +14,7 @@ import { IconType } from "react-icons";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { getTailwindMd } from "../../utils/tailwind";
+import Link from "next/link";
 
 const NavLink = ({
   label,
@@ -28,16 +29,17 @@ const NavLink = ({
 
   return (
     <li className="flex items-center space-x-2 cursor-pointer focus:underline hover:underline">
-      <a
-        href={path}
-        className={twMerge(
-          "flex items-center space-x-2",
-          path === router.pathname && "underline"
-        )}
-      >
-        <Icon size="1.5em" />
-        <span className="font-light capitalize">{label}</span>
-      </a>
+      <Link href={path}>
+        <div
+          className={twMerge(
+            "flex items-center space-x-2",
+            path === router.pathname && "underline"
+          )}
+        >
+          <Icon size="1.5em" />
+          <span className="font-light capitalize">{label}</span>
+        </div>
+      </Link>
     </li>
   );
 };
