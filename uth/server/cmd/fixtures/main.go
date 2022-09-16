@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"github.com/ealexandros/digital-story/uth/server/config"
 	"github.com/ealexandros/digital-story/uth/server/db"
 	"github.com/ealexandros/digital-story/uth/server/entities"
 	"go.uber.org/fx"
@@ -20,6 +21,7 @@ func addUserFixtures(db *gorm.DB) {
 func main() {
 	app := fx.New(
 		db.Module,
+		config.Module,
 		fx.Invoke(addUserFixtures),
 	)
 

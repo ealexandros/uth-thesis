@@ -19,6 +19,7 @@ func migrate(db *gorm.DB) error {
 func main() {
 	app := fx.New(
 		db.Module,
+		config.Module,
 		fx.Invoke(migrate),
 	)
 
