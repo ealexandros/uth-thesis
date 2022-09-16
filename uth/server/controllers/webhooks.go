@@ -18,7 +18,6 @@ func (h WebHookHandler) ServeHTTP(writer http.ResponseWriter, request *http.Requ
 
 		BasicMessagesEventHandler: nil,
 		ProblemReportEventHandler: func(event acapy.ProblemReportEvent) {
-			// just for debugging
 			fmt.Println(event)
 		},
 		CredentialExchangeEventHandler:     nil,

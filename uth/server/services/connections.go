@@ -7,6 +7,11 @@ import (
 	"gorm.io/gorm"
 )
 
+const (
+	ConnectionStateInactive = "inactive"
+	ConnectionStateActive   = "active"
+)
+
 type Connections struct {
 	db    *gorm.DB
 	acapy *acapy.Client
@@ -18,17 +23,21 @@ func (s *Connections) CreateInvitation(username string) (string, error) {
 		return "", ErrNotFound
 	}
 
+	// user has already generated an invitation url
+	if user.ConnectionID != "" {
+		return user.InvURL, nil
+	}
+
+	// Create inv url and store it
 	resp, err := s.acapy.CreateInvitation(username, true, false, false)
 	if err != nil {
 		return "", err
 	}
 
-	session := entities.Session{
-		ConnectionID: resp.ConnectionID,
-		State:        "invite-created",
-	}
+	user.InvURL = resp.InvitationURL
+	user.ConnectionID = resp.ConnectionID
+	user.ConnectionState = ConnectionStateInactive
 
-	user.ConnectionID = session.ConnectionID
 	if err := s.db.Save(&user).Error; err != nil {
 		acapyerr := s.acapy.RemoveConnection(resp.ConnectionID)
 		if acapyerr != nil {
@@ -38,11 +47,7 @@ func (s *Connections) CreateInvitation(username string) (string, error) {
 		return "", acapyerr
 	}
 
-	if err := s.db.Save(&session).Error; err != nil {
-		return "", err
-	}
-
-	return resp.InvitationURL, nil
+	return user.InvURL, nil
 }
 
 func (s *Connections) GetConnections() ([]Connection, error) {
@@ -66,6 +71,7 @@ func (s *Connections) GetConnections() ([]Connection, error) {
 		resp = append(resp, Connection{
 			Username:     u.Username,
 			ConnectionID: u.ConnectionID,
+			Active:       u.ConnectionState == ConnectionStateActive,
 		})
 	}
 
@@ -73,12 +79,12 @@ func (s *Connections) GetConnections() ([]Connection, error) {
 }
 
 func (s *Connections) HandleWebhook(event acapy.Connection) {
-	switch event.RFC23State {
-	case "response-sent":
+	switch event.State {
+	case "response":
 		s.db.
-			Model(&entities.Session{}).
+			Model(&entities.User{}).
 			Where("connection_id = ?", event.ConnectionID).
-			Update("state", event.RFC23State)
+			Update("connection_state", ConnectionStateActive)
 	}
 }
 

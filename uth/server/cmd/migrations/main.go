@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"github.com/ealexandros/digital-story/uth/server/config"
 	"github.com/ealexandros/digital-story/uth/server/db"
 	"github.com/ealexandros/digital-story/uth/server/entities"
 	"go.uber.org/fx"
@@ -10,9 +11,11 @@ import (
 )
 
 func migrate(db *gorm.DB) error {
+	if err := db.Migrator().DropTable(&entities.User{}); err != nil {
+		return err
+	}
 	return db.AutoMigrate(
 		&entities.User{},
-		&entities.Session{},
 	)
 }
 
