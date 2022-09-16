@@ -1,11 +1,12 @@
 package server
 
 import (
+	"net/http"
+	"strings"
+
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"go.uber.org/fx"
-	"net/http"
-	"strings"
 )
 
 func DummyAuth(next echo.HandlerFunc) echo.HandlerFunc {
@@ -35,8 +36,9 @@ var Module = fx.Provide(
 
 func NewEcho() *echo.Echo {
 	e := echo.New()
-	e.Use(DummyAuth)
+	
 	e.Use(middleware.CORS())
+	e.Use(DummyAuth)
 
 	return e
 }
