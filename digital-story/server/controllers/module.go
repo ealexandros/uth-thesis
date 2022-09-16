@@ -5,4 +5,5 @@ import "go.uber.org/fx"
 var Module = fx.Invoke(
 	RegisterConnections,
 	RegisterWebHooks,
+	RegisterCredentials,
 )

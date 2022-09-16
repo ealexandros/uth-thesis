@@ -5,3 +5,7 @@ type Connection struct {
 	ConnectionID string `json:"connection_id"`
 	Active       bool   `json:"active,omitempty"`
 }
+
+type Credential struct {
+	Attributes map[string]string `json:"attrs"`
+}
