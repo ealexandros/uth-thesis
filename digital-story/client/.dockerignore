@@ -1,0 +1,9 @@
+.next/
+.vscode/
+node_modules/
+
+.prettier
+.prettierignore
+.gitignore
+
+

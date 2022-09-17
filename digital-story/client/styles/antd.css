@@ -1,0 +1,3 @@
+.ant-message-custom-content {
+  @apply flex justify-center items-center;
+}

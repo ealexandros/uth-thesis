@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
+
+@import url("styles/antd.css");
+
+body,
+html {
+  font-family: "Roboto", sans-serif;
+  @apply bg-dark;
+}
+
+a {
+  @apply hover:text-current;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
