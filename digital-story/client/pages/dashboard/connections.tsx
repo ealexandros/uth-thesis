@@ -26,7 +26,7 @@ import {
 import { Spinner } from "../../components/Elements/Spinner";
 import { twMerge } from "tailwind-merge";
 
-import { message, Modal } from "antd";
+import { Empty, message, Modal } from "antd";
 import { queryClient } from "../../lib/react-query";
 import { QRCodeSVG } from "qrcode.react";
 import { Button } from "../../components/Elements/Button";
@@ -87,6 +87,7 @@ const Connections: NextPageWithLayout = () => {
   const createConnectionBtn = async () => {
     const resp = await createConnection.mutateAsync(undefined);
     setCreator(resp["inv_url"]);
+
     queryClient.refetchQueries("connections");
   };
 
@@ -235,8 +236,8 @@ const Connections: NextPageWithLayout = () => {
               </Table>
             </div>
           ) : (
-            <div className="text-white py-10 w-full h-full flex items-center justify-center opacity-40 text-xs cursor-default">
-              There are no connection made yet.
+            <div className="opacity-60 py-10">
+              <Empty />
             </div>
           )}
         </section>

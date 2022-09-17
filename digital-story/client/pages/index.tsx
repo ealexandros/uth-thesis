@@ -27,16 +27,19 @@ const Home: NextPage = () => {
             </ul>
           </nav>
 
-          <div className="w-10 h-10 sm:w-12 sm:h-12 border-2 border-light rounded-full hidden md:block">
-            <Image
-              src="/john.jpg"
-              alt="profile-image"
-              className="object-cover object-right rounded-full cursor-pointer"
-              priority={true}
-              width="100%"
-              height="100%"
-              layout="responsive"
-            />
+          <div className="items-center space-x-4 hidden md:flex">
+            <span className="capitalize text-md">John Katz</span>
+            <div className="w-11 h-11 border-2 border-light rounded-full">
+              <Image
+                src="/john.jpg"
+                alt="profile-image"
+                className="object-cover object-right rounded-full cursor-pointer"
+                priority={true}
+                width="100%"
+                height="100%"
+                layout="responsive"
+              />
+            </div>
           </div>
           <GiHamburgerMenu size="1.5em" className="block md:hidden" />
         </header>

@@ -14,9 +14,9 @@ import { TbPlugConnectedX } from "react-icons/tb";
 const ErrorFallback = ({ error }: FallbackProps) => (
   <div className="w-screen h-screen flex flex-col justify-center items-center space-y-8">
     <TbPlugConnectedX size="8em" className="text-light opacity-90" />
-    <div className="space-y-1 text-center">
+    <div className="space-y-1 text-center w-full">
       <h1 className="text-xl text-light">Ooops!</h1>
-      <h5 className="text-md text-center text-light opacity-60 px-4 md:px-0 md:w-3/6 m-auto">
+      <h5 className="text-md text-center text-light opacity-60 px-4 md:px-0 md:w-2/6 m-auto">
         Message: {error.message || "No error message."}
       </h5>
     </div>
