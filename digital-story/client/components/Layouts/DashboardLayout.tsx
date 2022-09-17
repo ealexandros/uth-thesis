@@ -79,7 +79,7 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   return (
     <section className="h-screen w-screen bg-dark text-white flex flex-col md:flex-row">
       <div
-        className="px-12 py-10 cursor-pointer block relative md:hidden"
+        className="px-12 py-10 cursor-pointer block md:hidden"
         onClick={() => setVisible((prev) => !prev)}
       >
         <GiHamburgerMenu size="1.5em" />
@@ -134,10 +134,6 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
           </nav>
 
           <DashboardToolbox className="pb-6 m-auto md:hidden" />
-
-          <h6 className="text-white uppercase text-xs text-right font-bold opacity-40">
-            beta
-          </h6>
         </div>
       </aside>
 

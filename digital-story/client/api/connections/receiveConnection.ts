@@ -9,10 +9,10 @@ const receiveConnection = (connectionUrl: string): Promise<void> => {
 };
 
 export const useReceiveConnectionMutation = (
-  config?: MutationConfig<typeof receiveConnection>
+  options?: MutationConfig<typeof receiveConnection>
 ) => {
   return useMutation({
-    ...config,
+    ...options,
     mutationFn: receiveConnection,
   });
 };
