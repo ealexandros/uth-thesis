@@ -3,7 +3,6 @@ import {
   RiDashboard3Fill,
   RiMoonClearFill,
   RiNotification4Fill,
-  RiCodeFill,
 } from "react-icons/ri";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { TbPlugConnected, TbCertificate } from "react-icons/tb";
@@ -15,6 +14,7 @@ import { useState } from "react";
 import { getTailwindMd } from "../../utils/tailwind";
 import Link from "next/link";
 import Image from "next/image";
+import { ENTITY_IMAGE_URL } from "../../config";
 
 const NavLink = ({
   label,
@@ -57,7 +57,7 @@ const DashboardToolbox = ({ className }: { className?: string }) => (
     </li>
     <li className="w-11 h-11 cursor-pointer border-2 border-light rounded-full order-2 md:order-4">
       <Image
-        src="/john.jpg"
+        src={ENTITY_IMAGE_URL}
         alt="profile-image"
         className="object-cover object-right rounded-full"
         priority={true}

@@ -13,13 +13,14 @@ dev:
 	docker-compose -f ./docker-compose.dev.yml up -d
 
 dev-tty:
-	docker exec -it uth-client-dev-container /bin/sh
+	docker exec -it digital-story-dev-container /bin/sh
 
 prod:
-	docker stop uth-client-prod-container || true 
-	docker build -f Dockerfile.prod -t uth-prod-client .
-	docker run --rm -d -p 3000:3000 --name uth-client-prod-container uth-prod-client
+	docker stop digital-story-john-container || true 
+	docker stop digital-story-acme-container || true 
+	docker-compose -f ./docker-compose.prod.yml up -d
 
 stop:
-	docker stop uth-client-prod-container || true 	
-	docker stop uth-client-dev-container || true 
+	docker stop digital-story-john-container || true 
+	docker stop digital-story-acme-container || true 
+	docker stop digital-story-dev-container || true 

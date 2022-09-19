@@ -18,7 +18,7 @@ Fastest way to run the current repo is with:
 $ make dev
 ```
 
-This command will create a docker container with all the prerequisites necessary. After that open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This command will create a docker container with all the prerequisites necessary. After that open [http://localhost:4000](http://localhost:4000) with your browser to see the result.
 
 To access the container execute the following command:
 

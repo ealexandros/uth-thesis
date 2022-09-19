@@ -5,6 +5,7 @@ import Image from "next/image";
 import { RouteFactory } from "../router/route-factory";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Button } from "../components/Elements/Button";
+import { ENTITY_IMAGE_URL, ENTITY_NAME } from "../config";
 
 const Home: NextPage = () => {
   return (
@@ -28,10 +29,10 @@ const Home: NextPage = () => {
           </nav>
 
           <div className="items-center space-x-4 hidden md:flex">
-            <span className="capitalize text-md">John Katz</span>
+            <span className="capitalize text-md">{ENTITY_NAME}</span>
             <div className="w-11 h-11 border-2 border-light rounded-full">
               <Image
-                src="/john.jpg"
+                src={ENTITY_IMAGE_URL}
                 alt="profile-image"
                 className="object-cover object-right rounded-full cursor-pointer"
                 priority={true}
