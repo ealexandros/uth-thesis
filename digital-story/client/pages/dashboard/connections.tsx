@@ -7,6 +7,7 @@ import { BsCheckCircleFill } from "react-icons/bs";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { MdMail, MdOutlineQrCode, MdOutgoingMail } from "react-icons/md";
 import { BiCopy } from "react-icons/bi";
+import { TbCapture } from "react-icons/tb";
 
 import { useCreateConnectionMutation } from "../../api/connections/createConnection";
 import { useReceiveConnectionMutation } from "../../api/connections/receiveConnection";
@@ -102,6 +103,7 @@ const Connections: NextPageWithLayout = () => {
     }
 
     receiveConnection.mutate(receiver);
+    queryClient.refetchQueries("connections");
   };
 
   const openCreatorModal = () => {
@@ -185,7 +187,7 @@ const Connections: NextPageWithLayout = () => {
               <div className="flex items-center space-x-4">
                 <MdMail size="2.2em" />
                 <h1 className="capitalize text-2xl text-light font-light">
-                  receive connection
+                  receive invitation
                 </h1>
               </div>
 
@@ -199,13 +201,19 @@ const Connections: NextPageWithLayout = () => {
                 />
               </div>
 
-              <Button
-                className="font-light shadow-lg"
-                onClick={receiveConnectionBtn}
-                size="md"
-              >
-                Connect
-              </Button>
+              <div className="space-x-4 flex">
+                <Button
+                  className="font-light shadow-lg"
+                  onClick={receiveConnectionBtn}
+                  size="md"
+                >
+                  Connect
+                </Button>
+
+                <button>
+                  <TbCapture size="1.5em" className="opacity-80" />
+                </button>
+              </div>
             </div>
           </div>
         </section>

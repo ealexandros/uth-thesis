@@ -29,7 +29,7 @@ export const THCell = ({ children, className }: BaseTableProps) => (
 );
 
 export const TBCell = ({ children, className }: BaseTableProps) => (
-  <th scope="row" className={twMerge("py-4 font-light", className)}>
+  <th scope="row" className={twMerge("py-4 font-light break-words", className)}>
     {children}
   </th>
 );
