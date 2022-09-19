@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  john:
+    build:
+      context: .
+      args:
+        CONTEXT: john
+      dockerfile: ./Dockerfile.prod
+    environment:
+      - PORT=4000
+    container_name: digital-story-john-container
+    ports:
+      - "4000:4000"
+
+  acme:
+    build:
+      context: .
+      args:
+        CONTEXT: acme
+      dockerfile: ./Dockerfile.prod
+    container_name: digital-story-acme-container
+    environment:
+      - PORT=5005
+    ports:
+      - "5005:5005"
