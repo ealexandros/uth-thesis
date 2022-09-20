@@ -4,20 +4,13 @@ go 1.18
 
 require (
 	github.com/caarlos0/env/v6 v6.10.1
-	github.com/joho/godotenv v1.4.0
 	github.com/labstack/echo/v4 v4.9.0
 	github.com/ldej/go-acapy-client v0.0.0-20210607085110-82da231a9f74
 	github.com/pkg/errors v0.8.1
-	github.com/stretchr/testify v1.7.1
 	go.uber.org/fx v1.18.1
 )
 
-require (
-	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/pmezard/go-difflib v1.0.0 // indirect
-	golang.org/x/tools v0.0.0-20200103221440-774c71fcf114 // indirect
-	gopkg.in/yaml.v3 v3.0.1 // indirect
-)
+require golang.org/x/tools v0.0.0-20200103221440-774c71fcf114 // indirect
 
 require (
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
@@ -39,4 +32,4 @@ require (
 
 replace go.etcd.io/bbolt => github.com/flower-corp/bbolt v1.3.7-0.20220315040627-32fed02add8f
 
-replace github.com/ldej/go-acapy-client => github.com/koioannis/go-acapy-client v0.0.0-20220916131627-aaadaf470b3a
+replace github.com/ldej/go-acapy-client => github.com/koioannis/go-acapy-client v0.0.0-20220920151428-685f940af867

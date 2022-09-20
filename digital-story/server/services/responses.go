@@ -9,3 +9,12 @@ type Connection struct {
 type Credential struct {
 	Attributes map[string]string `json:"attrs"`
 }
+
+type PresentationRecord struct {
+	State          string            `json:"state"`
+	Role           string            `json:"role"`
+	Label          string            `json:"label"`
+	PresExchangeID string            `json:"presentation_exchange_id"`
+	RevAttrs       map[string]string `json:"revealed_attrs"`
+	ReqAttrs       []string          `json:"requested_attrs"`
+}
