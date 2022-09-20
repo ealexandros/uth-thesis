@@ -59,9 +59,9 @@ func (s Connections) getConnections(skippers ...func(connection acapy.Connection
 		}
 
 		response = append(response, Connection{
-			Alias:        c.Alias,
+			Alias:        c.TheirLabel,
 			ConnectionID: c.ConnectionID,
-			Active:       c.State == "response",
+			Active:       c.State == "active",
 		})
 	}
 
