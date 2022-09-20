@@ -157,6 +157,7 @@ const Connections: NextPageWithLayout = () => {
                   placeholder="Connection Id"
                   value={creator}
                   className="bg-transparent border-none placeholder:font-light w-full outline-none pr-8"
+                  onChange={() => {}}
                 />
                 <button
                   className="cursor-pointer"

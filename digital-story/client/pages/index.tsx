@@ -59,23 +59,28 @@ const Home: NextPage = () => {
               </p>
             </div>
 
-            <Link href={RouteFactory.Dashboard.Index}>
-              <Button
-                className="shadow-lg font-light hidden md:block"
-                size="md"
-              >
-                Dashboard
-              </Button>
+            <Link href={RouteFactory.Dashboard.Index} passHref>
+              <a>
+                <Button
+                  className="shadow-lg font-light hidden md:block"
+                  size="md"
+                >
+                  Dashboard
+                </Button>
+              </a>
             </Link>
           </section>
 
           <section className="flex flex-col justify-center md:h-full md:w-2/5">
-            <Image
-              src="/digital-story-phone.svg"
-              layout="responsive"
-              width="100%"
-              height="100%"
-            />
+            <div>
+              <Image
+                src="/digital-story-phone.svg"
+                priority={true}
+                layout="responsive"
+                width="100%"
+                height="100%"
+              />
+            </div>
           </section>
 
           <section className="space-y-8 block md:hidden">
@@ -85,13 +90,15 @@ const Home: NextPage = () => {
               that lets you control your data.
             </p>
 
-            <Link href={RouteFactory.Dashboard.Index}>
-              <Button
-                className="shadow-lg font-light hidden md:block"
-                size="md"
-              >
-                Dashboard
-              </Button>
+            <Link href={RouteFactory.Dashboard.Index} passHref>
+              <a>
+                <Button
+                  className="shadow-lg font-light hidden md:block"
+                  size="md"
+                >
+                  Dashboard
+                </Button>
+              </a>
             </Link>
           </section>
         </main>

@@ -1,6 +1,5 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
-import { IconType } from "react-icons";
 
 const sizes = {
   xs: "text-xs px-3 py-1",
