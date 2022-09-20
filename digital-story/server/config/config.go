@@ -2,9 +2,7 @@ package config
 
 import (
 	"github.com/caarlos0/env/v6"
-	"github.com/pkg/errors"
 	"go.uber.org/fx"
-	"os"
 )
 
 var Module = fx.Provide(
@@ -19,10 +17,6 @@ type Config struct {
 }
 
 func NewConfig() (Config, error) {
-	if len(os.Args) < 1 {
-		return Config{}, errors.New("expected agent name argument")
-	}
-
 	cfg := Config{}
 	if err := env.Parse(&cfg); err != nil {
 		return cfg, err
