@@ -1,0 +1,21 @@
+{
+  "name": "Digital Story",
+  "short_name": "Next PWA",
+  "icons": [
+    {
+      "src": "/icons/logo-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/logo-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#D5A021",
+  "background_color": "#272932",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait"
+}
