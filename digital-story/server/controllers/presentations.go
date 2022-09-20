@@ -32,7 +32,9 @@ func (r presentations) sendPresentationProof(c echo.Context) error {
 }
 
 func (r presentations) getPresentationRecords(c echo.Context) error {
-	res, err := r.s.GetPresentationRecords()
+	role := c.QueryParam("role")
+
+	res, err := r.s.GetPresentationRecords(role)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error()).SetInternal(err)
 	}

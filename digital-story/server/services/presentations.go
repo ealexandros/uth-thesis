@@ -33,7 +33,24 @@ func (s *Presentations) SendPresentationRequest(connID string, schemaID string, 
 	return err
 }
 
-func (s *Presentations) GetPresentationRecords() ([]PresentationRecord, error) {
+func (s *Presentations) GetPresentationRecords(role string) ([]PresentationRecord, error) {
+	switch role {
+	case "prover":
+		return s.getPresentationRecords(func(a acapy.PresentationExchangeRecord) bool {
+			return a.Role == "prover"
+		})
+	case "verifier":
+		return s.getPresentationRecords(func(a acapy.PresentationExchangeRecord) bool {
+			return a.Role == "verifier"
+		})
+	default:
+		return s.getPresentationRecords(func(_ acapy.PresentationExchangeRecord) bool {
+			return true
+		})
+	}
+}
+
+func (s *Presentations) getPresentationRecords(filter func(a acapy.PresentationExchangeRecord) bool) ([]PresentationRecord, error) {
 	presentations, err := s.a.QueryPresentationExchange(acapy.QueryPresentationExchangeParams{})
 	if err != nil {
 		return nil, err
@@ -41,6 +58,10 @@ func (s *Presentations) GetPresentationRecords() ([]PresentationRecord, error) {
 
 	res := make([]PresentationRecord, 0)
 	for _, p := range presentations {
+		if !filter(p) {
+			continue
+		}
+
 		conn, err := s.a.GetConnection(p.ConnectionID)
 		if err != nil {
 			return nil, err
@@ -66,6 +87,7 @@ func (s *Presentations) GetPresentationRecords() ([]PresentationRecord, error) {
 		})
 	}
 	return res, nil
+
 }
 
 func (s *Presentations) SendPresentationProof(preID string, revAttrs []string) error {
