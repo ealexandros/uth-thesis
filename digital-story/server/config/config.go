@@ -1,9 +1,7 @@
 package config
 
 import (
-	"fmt"
 	"github.com/caarlos0/env/v6"
-	"github.com/joho/godotenv"
 	"github.com/pkg/errors"
 	"go.uber.org/fx"
 	"os"
@@ -14,7 +12,7 @@ var Module = fx.Provide(
 )
 
 type Config struct {
-	AcapyAdminHost string `env:"ACAPY_AGENT_HOST"`
+	AcapyAdminHost string `env:"ACAPY_ADMIN_HOST"`
 	AcapyAdminPort string `env:"ACAPY_ADMIN_PORT"`
 
 	ServerPort string `env:"SERVER_PORT"`
@@ -23,11 +21,6 @@ type Config struct {
 func NewConfig() (Config, error) {
 	if len(os.Args) < 1 {
 		return Config{}, errors.New("expected agent name argument")
-	}
-	agentName := os.Args[1]
-
-	if err := godotenv.Load(fmt.Sprintf(".env.%s", agentName)); err != nil {
-		return Config{}, err
 	}
 
 	cfg := Config{}

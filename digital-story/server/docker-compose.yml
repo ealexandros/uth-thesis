@@ -1,50 +1,54 @@
 version: '3.5'
 
 services:
-  agent:
+  acme-agent:
     image: bcgovimages/aries-cloudagent:py36-1.16-1_1.0.0-rc0
-    entrypoint: /bin/bash
     ports:
-      - ${ACAPY_ADMIN_PORT}:${ACAPY_ADMIN_PORT}
-      - ${ACAPY_AGENT_PORT}:${ACAPY_AGENT_PORT}
-    environment:
-      # Indy
-      # Agent networking
-      ACAPY_ENDPOINT: 'http://${ACAPY_AGENT_HOST}:${ACAPY_AGENT_PORT}'
-      ACAPY_WEBHOOK_URL: 'http://${DOCKER_GATEWAY_HOST:-localhost}:${SERVER_PORT}/webhooks'
-      ACAPY_OUTBOUND_TRANSPORT: 'http'
-      ACAPY_GENESIS_URL: '${LEDGER_URL}/genesis'
-      # Wallet
-      ACAPY_AUTO_PROVISION: "true"
-      ACAPY_WALLET_TYPE: 'indy'
-      ACAPY_WALLET_NAME: 'john-wallet'
-      ACAPY_WALLET_KEY: 'secret-wallet-key'
-      # Admin
-      ACAPY_ADMIN_INSECURE_MODE: "true"
-      # Invites
-      ACAPY_LABEL: ${ACAPY_AGENT_LABEL}
-      ACAPY_INVITE_LABEL: ${ACAPY_AGENT_LABEL}
-      ACAPY_AUTO_ACCEPT_REQUESTS: "true"
-      ACAPY_PUBLIC_INVITES: "true"
-      # Credentials
-      ACAPY_AUTO_RESPOND_CREDENTIAL_PROPOSAL: "true"
-      ACAPY_AUTO_RESPOND_CREDENTIAL_OFFER: "true"
-      ACAPY_AUTO_RESPOND_CREDENTIAL_REQUEST: "true"
-      ACAPY_AUTO_STORE_CREDENTIAL: "true"
-      ACAPY_DEBUG_CREDENTIALS: "true"
-    command:  [
-      "-c",
-      "sleep 5; \
-        aca-py start \
-        -it http '0.0.0.0' ${ACAPY_AGENT_PORT} \
-        -ot http \
-        --admin '0.0.0.0' ${ACAPY_ADMIN_PORT}",
-    ]
+      - "5003:5003"
+    command: start --arg-file ./acme.yml
     volumes:
-      - aca-py:/home/indy/.indy_client/wallet
+      - ${PWD}/config/acme.yml:/home/indy/acme.yml
+      - acme-agent:/home/indy/.indy_client/wallet
     extra_hosts:
       - "localhost:host-gateway"
+  acme-server:
+    image: acme-server
+    ports:
+      - "5001:5001"
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      SERVER_PORT: 5001
+      ACAPY_ADMIN_HOST: acme-agent
+      ACAPY_ADMIN_PORT: 5003
+
+  john-agent:
+    image: bcgovimages/aries-cloudagent:py36-1.16-1_1.0.0-rc0
+    ports:
+      - "4003:4003"
+      - "4002:4002"
+    command: start --arg-file ./john.yml
+    volumes:
+      - ${PWD}/config/john.yml:/home/indy/john.yml
+      - john-agent:/home/indy/.indy_client/wallet
+    extra_hosts:
+      - "localhost:host-gateway"
+  john-server:
+    image: john-server
+    ports:
+      - "4001:4001"
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      SERVER_PORT: 4001
+      ACAPY_ADMIN_HOST: john-agent
+      ACAPY_ADMIN_PORT: 4003
 volumes:
-  aca-py:
-    name: '${ACAPY_AGENT_NAME}-acapy'
+  acme-agent:
+    name: 'acme-agent'
+    driver: local
+  john-agent:
+    name: 'acme-agent'
     driver: local

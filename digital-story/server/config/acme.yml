@@ -1,0 +1,50 @@
+label: Acme
+invite-label: Acme
+wallet-name: acme
+endpoint:
+  - http://acme-agent:5002
+  - http://localhost:5002
+inbound-transport:
+  - ['http', 0.0.0.0, 5002]
+admin: [0.0.0.0, 5003]
+
+# Transport
+outbound-transport: http
+webhook-url: 'http://localhost:5001/webhooks'
+
+# Ledger
+genesis-url: http://localhost:9000/genesis
+
+# Admin
+admin-insecure-mode: true
+
+# Connections
+debug-connections: true
+debug-credentials: true
+debug-presentations: true
+auto-accept-invites: true
+auto-accept-requests: true
+auto-ping-connection: true
+
+# Credentials and Presentations
+preserve-exchange-records: true
+auto-store-credential: true
+auto-respond-credential-proposal: true
+auto-respond-credential-offer: true
+auto-respond-credential-request: true
+
+auto-respond-presentation-proposal: true
+auto-respond-presentation-request: true
+auto-verify-presentation: true
+
+# Wallet
+wallet-type: indy
+wallet-key: "insecure, for use in demo only"
+auto-provision: true
+
+# Enable undelivered queue
+# Important for communication with toolbox over http (as opposed to ws)
+enable-undelivered-queue: true
+
+# Catch Admin Trust Pings
+monitor-ping: true
