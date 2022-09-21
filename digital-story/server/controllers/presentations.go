@@ -17,15 +17,8 @@ func RegisterPresentations(e *echo.Echo, s *services.Presentations) {
 
 func (r presentations) sendPresentationProof(c echo.Context) error {
 	preExID := c.Param("pre_ex_id")
-	var request struct {
-		RevAttrs []string `json:"rev_attrs"`
-	}
 
-	if err := c.Bind(&request); err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error()).SetInternal(err)
-	}
-
-	if err := r.s.SendPresentationProof(preExID, request.RevAttrs); err != nil {
+	if err := r.s.SendPresentationProof(preExID); err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error()).SetInternal(err)
 	}
 

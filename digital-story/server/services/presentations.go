@@ -90,7 +90,7 @@ func (s *Presentations) getPresentationRecords(filter func(a acapy.PresentationE
 
 }
 
-func (s *Presentations) SendPresentationProof(preID string, revAttrs []string) error {
+func (s *Presentations) SendPresentationProof(preID string) error {
 	presRecord, err := s.a.GetPresentationExchangeByID(preID)
 	if err != nil {
 		return err
@@ -111,21 +111,26 @@ func (s *Presentations) SendPresentationProof(preID string, revAttrs []string) e
 		}
 	}
 
-	reqAttrs := map[string]acapy.PresentationProofAttribute{}
-	for _, revAttr := range revAttrs {
-		credID, ok := matchedCredIDs[revAttr]
-		if !ok {
-			return errors.New("no credential found that satisfy the restriction of the requested presentation")
-		}
-		reqAttrs[revAttr] = acapy.PresentationProofAttribute{
-			Revealed:     true,
-			CredentialID: credID,
-		}
-
+	nameCredID, ok := matchedCredIDs["name"]
+	if !ok {
+		return errors.New("credential with name attribute not found")
+	}
+	departmentCredID, ok := matchedCredIDs["department"]
+	if !ok {
+		return errors.New("credentail with department attribute not found")
 	}
 
 	_, err = s.a.SendPresentationByID(preID, acapy.PresentationProof{
-		RequestedAttributes:    reqAttrs,
+		RequestedAttributes: map[string]acapy.PresentationProofAttribute{
+			"name": acapy.PresentationProofAttribute{
+				CredentialID: nameCredID,
+				Revealed:     true,
+			},
+			"department": acapy.PresentationProofAttribute{
+				Revealed:     true,
+				CredentialID: departmentCredID,
+			},
+		},
 		RequestedPredicates:    map[string]acapy.PresentationProofPredicate{},
 		SelfAttestedAttributes: map[string]string{},
 		Trace:                  false,
