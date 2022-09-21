@@ -6,5 +6,10 @@ export const RouteFactory = {
     Index: dashboardPrefix,
     Connections: `${dashboardPrefix}/connections`,
     Credentials: `${dashboardPrefix}/credentials`,
+    Presentations: {
+      Index: `${dashboardPrefix}/presentations`,
+      Verifier: `${dashboardPrefix}/presentations/verifier`,
+      Prover: `${dashboardPrefix}/presentations/prover`,
+    },
   },
 };

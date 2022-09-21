@@ -9,6 +9,7 @@ const sizes = {
 
 const variants = {
   primary: "bg-primary rounded-md text-light hover:bg-primary-hover",
+  none: "",
 };
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {

@@ -5,7 +5,11 @@ import {
   RiNotification4Fill,
 } from "react-icons/ri";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { TbPlugConnected, TbCertificate } from "react-icons/tb";
+import {
+  TbPlugConnected,
+  TbCertificate,
+  TbArrowsRightLeft,
+} from "react-icons/tb";
 import { BsFillGearFill, BsPlusLg } from "react-icons/bs";
 import { twMerge } from "tailwind-merge";
 import { IconType } from "react-icons";
@@ -22,18 +26,20 @@ const NavLink = ({
   icon: Icon,
 }: {
   label: string;
-  path?: string;
+  path?: string | string[];
   icon: IconType;
 }) => {
   const router = useRouter();
 
   return (
     <li className="flex items-center space-x-2 cursor-pointer focus:underline hover:underline">
-      <Link href={path}>
+      <Link href={Array.isArray(path) ? path[0] : path}>
         <div
           className={twMerge(
             "flex items-center space-x-2",
-            path === router.pathname && "underline"
+            (Array.isArray(path)
+              ? path.includes(router.pathname)
+              : path === router.pathname) && "underline"
           )}
         >
           <Icon size="1.5em" />
@@ -129,6 +135,14 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
                 label="Credentials"
                 path={RouteFactory.Dashboard.Credentials}
                 icon={TbCertificate}
+              />
+              <NavLink
+                label="Presentations"
+                path={[
+                  RouteFactory.Dashboard.Presentations.Verifier,
+                  RouteFactory.Dashboard.Presentations.Prover,
+                ]}
+                icon={TbArrowsRightLeft}
               />
             </ul>
           </nav>
