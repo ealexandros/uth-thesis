@@ -2,7 +2,7 @@ label: John
 invite-label: John
 wallet-name: john
 endpoint:
-  - http://john-agent:4002
+  - http://localhost:4002
   - http://localhost:4002
 inbound-transport:
   - ['http', 0.0.0.0, 4002]

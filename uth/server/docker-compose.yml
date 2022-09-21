@@ -24,6 +24,7 @@ services:
       ACAPY_ADMIN_INSECURE_MODE: "true"
       # Invites
       ACAPY_INVITE_LABEL: 'UTH'
+      ACAPY_LABEL: "UTH"
       ACAPY_AUTO_ACCEPT_REQUESTS: "true"
       ACAPY_PUBLIC_INVITES: "true"
       # Credentials

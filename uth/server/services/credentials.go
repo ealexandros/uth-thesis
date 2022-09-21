@@ -51,7 +51,7 @@ func (s *Credentials) IssueDegree(connID string) error {
 			{
 				Name:     "graduation_date",
 				MimeType: "text/plain",
-				Value:    time.Now().String(),
+				Value:    time.Now().Format("2006-02-1"),
 			},
 		},
 	}, "comment", string(credDefID), "VeYnF5tidYy3kMR2F82UDL", "VeYnF5tidYy3kMR2F82UDL:2:student_degree:1.0")
