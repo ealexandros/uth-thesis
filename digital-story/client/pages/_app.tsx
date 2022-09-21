@@ -1,13 +1,13 @@
-import type { AppProps } from "next/app";
 import "antd/dist/antd.css";
-import "../styles/globals.css";
+import type { AppProps } from "next/app";
+import "styles/globals.css";
 
+import { queryClient } from "lib/react-query";
 import Head from "next/head";
-import { QueryClientProvider } from "react-query";
-import { queryClient } from "../lib/react-query";
-import { ErrorBoundary, FallbackProps } from "react-error-boundary";
-import { NextPageWithLayout } from "../types";
 import NextNProgress from "nextjs-progressbar";
+import { ErrorBoundary, FallbackProps } from "react-error-boundary";
+import { QueryClientProvider } from "react-query";
+import { NextPageWithLayout } from "types";
 
 import { TbPlugConnectedX } from "react-icons/tb";
 

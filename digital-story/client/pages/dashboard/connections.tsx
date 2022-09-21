@@ -1,17 +1,23 @@
-import { useState } from "react";
+import { DashboardLayout } from "components/Layouts/DashboardLayout";
 import Head from "next/head";
-import { DashboardLayout } from "../../components/Layouts/DashboardLayout";
-import { NextPageWithLayout } from "../../types";
+import { useState } from "react";
+import { NextPageWithLayout } from "types";
 
-import { BsCheckCircleFill } from "react-icons/bs";
 import { AiFillCloseCircle } from "react-icons/ai";
-import { MdMail, MdOutlineQrCode, MdOutgoingMail } from "react-icons/md";
 import { BiCopy } from "react-icons/bi";
+import { BsCheckCircleFill } from "react-icons/bs";
+import { MdMail, MdOutgoingMail, MdOutlineQrCode } from "react-icons/md";
 import { TbCapture } from "react-icons/tb";
 
-import { useCreateConnectionMutation } from "../../api/connections/createConnection";
-import { useReceiveConnectionMutation } from "../../api/connections/receiveConnection";
+import { useCreateConnectionMutation } from "api/connections/createConnection";
+import { useReceiveConnectionMutation } from "api/connections/receiveConnection";
 
+import { twMerge } from "tailwind-merge";
+import {
+  ConnectionsResponse,
+  useFetchConnectionsQuery,
+} from "../../api/connections/fetchConnections";
+import { Spinner } from "../../components/Elements/Spinner";
 import {
   Table,
   TBCell,
@@ -20,17 +26,11 @@ import {
   THead,
   TRow,
 } from "../../components/Table";
-import {
-  ConnectionsResponse,
-  useFetchConnectionsQuery,
-} from "../../api/connections/fetchConnections";
-import { Spinner } from "../../components/Elements/Spinner";
-import { twMerge } from "tailwind-merge";
 
 import { Empty, message, Modal } from "antd";
-import { queryClient } from "../../lib/react-query";
 import { QRCodeSVG } from "qrcode.react";
 import { Button } from "../../components/Elements/Button";
+import { queryClient } from "../../lib/react-query";
 
 const TableRows = ({
   index,

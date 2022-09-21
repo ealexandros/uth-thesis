@@ -1,31 +1,23 @@
-import Head from "next/head";
+import { Empty, message } from "antd";
 import {
   PresentationResponse,
   useFetchPresentationQuery,
-} from "../../../api/presentations/fetchPresentations";
-import { DashboardLayout } from "../../../components/Layouts/DashboardLayout";
-import { PresentationLayout } from "../../../components/Layouts/PresentationLayout";
-import { NextPageWithLayout } from "../../../types";
-
-import {
-  Table,
-  TBCell,
-  TBody,
-  THCell,
-  THead,
-  TRow,
-} from "../../../components/Table";
-import { twMerge } from "tailwind-merge";
-import { BsCheckCircleFill } from "react-icons/bs";
-import { AiFillCloseCircle } from "react-icons/ai";
-import { useMemo } from "react";
-import { Empty, message } from "antd";
-import { Spinner } from "../../../components/Elements/Spinner";
+} from "api/presentations/fetchPresentations";
 import {
   ProverPresentationRequest,
   useProverPresentationMutation,
-} from "../../../api/presentations/proverPresentation";
+} from "api/presentations/proverPresentation";
+import { Spinner } from "components/Elements/Spinner";
+import { DashboardLayout } from "components/Layouts/DashboardLayout";
+import { PresentationLayout } from "components/Layouts/PresentationLayout";
+import { Table, TBCell, TBody, THCell, THead, TRow } from "components/Table";
+import Head from "next/head";
+import { useMemo } from "react";
+import { AiFillCloseCircle } from "react-icons/ai";
+import { BsCheckCircleFill } from "react-icons/bs";
 import { UseMutateFunction } from "react-query";
+import { twMerge } from "tailwind-merge";
+import { NextPageWithLayout } from "types";
 
 const TableRows = ({
   presentation,

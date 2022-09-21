@@ -1,31 +1,23 @@
-import Head from "next/head";
-import { AiOutlinePlus } from "react-icons/ai";
-import { twMerge } from "tailwind-merge";
-import { Button } from "../../../components/Elements/Button";
-import { Text } from "../../../components/Form/Text";
-import { DashboardLayout } from "../../../components/Layouts/DashboardLayout";
-import { PresentationLayout } from "../../../components/Layouts/PresentationLayout";
-import {
-  Table,
-  TBCell,
-  TBody,
-  THCell,
-  THead,
-  TRow,
-} from "../../../components/Table";
-import { NextPageWithLayout } from "../../../types";
-import { Formik, Form, FormikHelpers } from "formik";
-import { useFetchConnectionsQuery } from "../../../api/connections/fetchConnections";
+import { Empty, message } from "antd";
+import { useFetchConnectionsQuery } from "api/connections/fetchConnections";
 import {
   PresentationResponse,
   useFetchPresentationQuery,
-} from "../../../api/presentations/fetchPresentations";
-import { Spinner } from "../../../components/Elements/Spinner";
-import { Empty, message } from "antd";
-import { useVerifyPresentationMutation } from "../../../api/presentations/verifyPresentation";
-import { queryClient } from "../../../lib/react-query";
-
+} from "api/presentations/fetchPresentations";
+import { useVerifyPresentationMutation } from "api/presentations/verifyPresentation";
+import { Button } from "components/Elements/Button";
+import { Spinner } from "components/Elements/Spinner";
+import { Text } from "components/Form/Text";
+import { DashboardLayout } from "components/Layouts/DashboardLayout";
+import { PresentationLayout } from "components/Layouts/PresentationLayout";
+import { Table, TBCell, TBody, THCell, THead, TRow } from "components/Table";
+import { Form, Formik, FormikHelpers } from "formik";
+import { queryClient } from "lib/react-query";
+import Head from "next/head";
+import { AiOutlinePlus } from "react-icons/ai";
 import { RiTruckLine } from "react-icons/ri";
+import { twMerge } from "tailwind-merge";
+import { NextPageWithLayout } from "types";
 
 const StateComponent = (state: string) => {
   switch (state) {

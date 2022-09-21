@@ -1,10 +1,10 @@
+import { DashboardLayout } from "components/Layouts/DashboardLayout";
 import Head from "next/head";
-import { DashboardLayout } from "../../components/Layouts/DashboardLayout";
-import { NextPageWithLayout } from "../../types";
-import { BsFillPinFill, BsPlusLg } from "react-icons/bs";
-import { TbPlugConnected, TbCertificate } from "react-icons/tb";
-import { RouteFactory } from "../../router/route-factory";
 import Link from "next/link";
+import { BsFillPinFill, BsPlusLg } from "react-icons/bs";
+import { TbCertificate, TbPlugConnected } from "react-icons/tb";
+import { RouteFactory } from "router/route-factory";
+import { NextPageWithLayout } from "types";
 
 const Dashboard: NextPageWithLayout = () => {
   return (

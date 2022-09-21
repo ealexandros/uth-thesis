@@ -1,11 +1,11 @@
-import Head from "next/head";
-import Link from "next/link";
+import { Button } from "components/Elements/Button";
+import { ENTITY_IMAGE_URL, ENTITY_NAME } from "config";
 import { NextPage } from "next";
+import Head from "next/head";
 import Image from "next/image";
-import { RouteFactory } from "../router/route-factory";
+import Link from "next/link";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { Button } from "../components/Elements/Button";
-import { ENTITY_IMAGE_URL, ENTITY_NAME } from "../config";
+import { RouteFactory } from "../router/route-factory";
 
 const Home: NextPage = () => {
   return (

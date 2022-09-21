@@ -1,19 +1,12 @@
+import { useFetchCredentialsQuery } from "api/credentials/fetchCredentials";
+import { Spinner } from "components/Elements/Spinner";
+import { DashboardLayout } from "components/Layouts/DashboardLayout";
 import Head from "next/head";
-import { useFetchCredentialsQuery } from "../../api/credentials/fetchCredentials";
-import { Spinner } from "../../components/Elements/Spinner";
-import { DashboardLayout } from "../../components/Layouts/DashboardLayout";
-import { NextPageWithLayout } from "../../types";
+import { NextPageWithLayout } from "types";
 
-import {
-  Table,
-  TBCell,
-  TBody,
-  THCell,
-  THead,
-  TRow,
-} from "../../components/Table";
-import { twMerge } from "tailwind-merge";
 import { Empty } from "antd";
+import { Table, TBCell, TBody, THCell, THead, TRow } from "components/Table";
+import { twMerge } from "tailwind-merge";
 
 const Credentials: NextPageWithLayout = () => {
   const { data, isLoading } = useFetchCredentialsQuery();
