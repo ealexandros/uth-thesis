@@ -1,0 +1,67 @@
+version: '3.5'
+
+services:
+  uth-agent:
+    image: bcgovimages/aries-cloudagent:py36-1.16-1_1.0.0-rc0
+    entrypoint: /bin/bash
+    ports:
+      - ${ACAPY_ADMIN_PORT}:${ACAPY_ADMIN_PORT}
+      - ${ACAPY_AGENT_PORT}:${ACAPY_AGENT_PORT}
+    environment:
+      # Indy
+      # Agent networking
+      ACAPY_ENDPOINT: 'http://${ACAPY_AGENT_HOST}:${ACAPY_AGENT_PORT}'
+      ACAPY_WEBHOOK_URL: 'http://${DOCKER_GATEWAY_HOST:-localhost}:${SERVER_PORT}/webhooks'
+      ACAPY_OUTBOUND_TRANSPORT: 'http'
+      ACAPY_GENESIS_URL: '${LEDGER_URL}/genesis'
+      # Wallet
+      ACAPY_AUTO_PROVISION: "true"
+      ACAPY_WALLET_TYPE: 'indy'
+      ACAPY_WALLET_NAME: 'uth-wallet'
+      ACAPY_WALLET_KEY: 'secret-wallet-key'
+      ACAPY_WALLET_SEED: ${ACAPY_AGENT_WALLET_SEED}
+      # Admin
+      ACAPY_ADMIN_INSECURE_MODE: "true"
+      # Invites
+      ACAPY_INVITE_LABEL: 'UTH'
+      ACAPY_AUTO_ACCEPT_REQUESTS: "true"
+      ACAPY_PUBLIC_INVITES: "true"
+      # Credentials
+      ACAPY_AUTO_RESPOND_CREDENTIAL_PROPOSAL: "true"
+      ACAPY_AUTO_RESPOND_CREDENTIAL_OFFER: "true"
+      ACAPY_AUTO_RESPOND_CREDENTIAL_REQUEST: "true"
+      ACAPY_DEBUG_CREDENTIALS: "true"
+    command:  [
+      "-c",
+      "curl -d '{\"seed\":\"${ACAPY_AGENT_WALLET_SEED}\", \"role\":\"TRUST_ANCHOR\", \"alias\":\"UTH\"}' -X POST ${LEDGER_URL}/register; \
+       sleep 5; \
+        aca-py start \
+        -it http '0.0.0.0' ${ACAPY_AGENT_PORT} \
+        -ot http \
+        --admin '0.0.0.0' ${ACAPY_ADMIN_PORT}",
+    ]
+    volumes:
+      - aca-py:/home/indy/.indy_client/wallet
+    extra_hosts:
+      - "localhost:host-gateway"
+  db:
+    container_name: postgres_container
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DATABASE}
+      PGDATA: /data/postgres
+    volumes:
+      - db:/data/postgres
+    ports:
+      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
+    command: -p ${POSTGRES_PORT}
+    restart: unless-stopped
+volumes:
+  db:
+    name: 'uth-postgres'
+    driver: local
+  aca-py:
+    name: 'uth-acapy'
+    driver: local

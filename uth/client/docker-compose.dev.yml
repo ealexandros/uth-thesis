@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  next-dev-service:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.dev
+    container_name: uth-client-dev-container
+    tty: true
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/app
