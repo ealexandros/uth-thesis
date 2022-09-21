@@ -1,12 +1,10 @@
 import { Empty, message } from "antd";
+import { useDeleteProofPresentation } from "api/presentations/deleteProofPresentation";
 import {
   PresentationResponse,
   useFetchPresentationQuery,
 } from "api/presentations/fetchPresentations";
-import {
-  ProverPresentationRequest,
-  useProverPresentationMutation,
-} from "api/presentations/proverPresentation";
+import { useProverPresentationMutation } from "api/presentations/proverPresentation";
 import { Spinner } from "components/Elements/Spinner";
 import { DashboardLayout } from "components/Layouts/DashboardLayout";
 import { PresentationLayout } from "components/Layouts/PresentationLayout";
@@ -21,11 +19,13 @@ import { NextPageWithLayout } from "types";
 
 const TableRows = ({
   presentation,
-  prove,
+  accept,
+  decline,
   index,
 }: {
   presentation: PresentationResponse;
-  prove: UseMutateFunction<void, any, ProverPresentationRequest, unknown>;
+  accept: UseMutateFunction<void, any, any, unknown>;
+  decline: UseMutateFunction<void, any, any, unknown>;
   index: number;
 }) => (
   <TRow
@@ -39,17 +39,15 @@ const TableRows = ({
       <div className="space-y-2 flex flex-col items-center lg:flex-row lg:space-x-4 lg:space-y-0 lg:justify-center">
         <button
           className="flex items-center space-x-1.5 opacity-80 hover:opacity-100 transition-all"
-          onClick={() =>
-            prove({
-              pres_ex_id: presentation.presentation_exchange_id,
-              rev_attrs: presentation.requested_attrs || [],
-            })
-          }
+          onClick={() => accept(presentation.presentation_exchange_id)}
         >
           <BsCheckCircleFill size="1em" className="text-green-600" />
           <span>Accept</span>
         </button>
-        <button className="flex items-center space-x-1.5 opacity-80 hover:opacity-100 transition-all">
+        <button
+          className="flex items-center space-x-1.5 opacity-80 hover:opacity-100 transition-all"
+          onClick={() => decline(presentation.presentation_exchange_id)}
+        >
           <AiFillCloseCircle size="1.2em" className="text-red-600" />
           <span>Decline</span>
         </button>
@@ -60,7 +58,17 @@ const TableRows = ({
 
 const Prover: NextPageWithLayout = () => {
   const presentations = useFetchPresentationQuery("prover");
-  const prover = useProverPresentationMutation({
+
+  const declineProof = useDeleteProofPresentation({
+    onSuccess() {
+      message.success("Successful.");
+    },
+    onError(error) {
+      message.error(error?.response?.data?.message || "Something went wrong.");
+    },
+  });
+
+  const acceptProof = useProverPresentationMutation({
     onSuccess() {
       message.success("Successful.");
     },
@@ -106,7 +114,8 @@ const Prover: NextPageWithLayout = () => {
                 {proverData.map((presentation, index) => (
                   <TableRows
                     presentation={presentation}
-                    prove={prover.mutate}
+                    accept={acceptProof.mutate}
+                    decline={declineProof.mutate}
                     key={index}
                     index={index}
                   />
