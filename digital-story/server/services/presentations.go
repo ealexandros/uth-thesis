@@ -135,6 +135,10 @@ func (s *Presentations) SendPresentationProof(preID string, revAttrs []string) e
 
 }
 
+func (s *Presentations) DeletePresentationRecord(preID string) error {
+	return s.a.RemovePresentationExchangeByID(preID)
+}
+
 func NewPresentations(a *acapy.Client) *Presentations {
 	return &Presentations{a: a}
 }

@@ -10,13 +10,14 @@ func RegisterPresentations(e *echo.Echo, s *services.Presentations) {
 	r := presentations{s: s}
 
 	e.POST("/presentations/request", r.sendPresentationRequest)
-	e.POST("/presentations", r.sendPresentationProof)
+	e.POST("/presentations/:pre_ex_id", r.sendPresentationProof)
 	e.GET("/presentations", r.getPresentationRecords)
+	e.DELETE("/presentations/:pre_ex_id", r.getPresentationRecords)
 }
 
 func (r presentations) sendPresentationProof(c echo.Context) error {
+	preExID := c.Param("pre_ex_id")
 	var request struct {
-		PreExID  string   `json:"pres_ex_id"`
 		RevAttrs []string `json:"rev_attrs"`
 	}
 
@@ -24,7 +25,7 @@ func (r presentations) sendPresentationProof(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error()).SetInternal(err)
 	}
 
-	if err := r.s.SendPresentationProof(request.PreExID, request.RevAttrs); err != nil {
+	if err := r.s.SendPresentationProof(preExID, request.RevAttrs); err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error()).SetInternal(err)
 	}
 
@@ -59,6 +60,16 @@ func (r presentations) sendPresentationRequest(c echo.Context) error {
 	}
 
 	return c.NoContent(http.StatusCreated)
+}
+
+func (r presentations) deletePresentationRecord(c echo.Context) error {
+	presRecID := c.Param("pre_ex_id")
+
+	if err := r.s.DeletePresentationRecord(presRecID); err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error()).SetInternal(err)
+	}
+
+	return c.NoContent(http.StatusOK)
 }
 
 type presentations struct {
