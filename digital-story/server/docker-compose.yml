@@ -1,0 +1,54 @@
+version: '3.5'
+
+services:
+  acme-agent:
+    image: bcgovimages/aries-cloudagent:py36-1.16-1_1.0.0-rc0
+    ports:
+      - "5003:5003"
+    command: start --arg-file ./acme.yml
+    volumes:
+      - ${PWD}/config/acme.yml:/home/indy/acme.yml
+      - acme-agent:/home/indy/.indy_client/wallet
+    extra_hosts:
+      - "localhost:host-gateway"
+  acme-server:
+    image: acme-server
+    ports:
+      - "5001:5001"
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      SERVER_PORT: 5001
+      ACAPY_ADMIN_HOST: acme-agent
+      ACAPY_ADMIN_PORT: 5003
+
+  john-agent:
+    image: bcgovimages/aries-cloudagent:py36-1.16-1_1.0.0-rc0
+    ports:
+      - "4003:4003"
+      - "4002:4002"
+    command: start --arg-file ./john.yml
+    volumes:
+      - ${PWD}/config/john.yml:/home/indy/john.yml
+      - john-agent:/home/indy/.indy_client/wallet
+    extra_hosts:
+      - "localhost:host-gateway"
+  john-server:
+    image: john-server
+    ports:
+      - "4001:4001"
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      SERVER_PORT: 4001
+      ACAPY_ADMIN_HOST: john-agent
+      ACAPY_ADMIN_PORT: 4003
+volumes:
+  acme-agent:
+    name: 'acme-agent'
+    driver: local
+  john-agent:
+    name: 'acme-agent'
+    driver: local
