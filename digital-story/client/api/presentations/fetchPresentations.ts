@@ -5,6 +5,7 @@ export type PresentationResponse = {
   state: string;
   role: string;
   label: string;
+  error_message?: string;
   presentation_exchange_id: string;
   revealed_attrs?: {
     [key: string]: string;
