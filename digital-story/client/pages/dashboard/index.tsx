@@ -31,7 +31,7 @@ const Dashboard: NextPageWithLayout = () => {
           <Link href={RouteFactory.Dashboard.Credentials}>
             <div className="w-32 h-32 rounded-lg shadow-lg cursor-pointer bg-dark-overlay flex flex-col justify-center items-center space-y-6 lg:w-40 lg:h-40">
               <TbCertificate size="4em" />
-              <span>Certificates</span>
+              <span>Credentials</span>
             </div>
           </Link>
 

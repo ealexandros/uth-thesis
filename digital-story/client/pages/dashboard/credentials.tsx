@@ -37,22 +37,26 @@ const Credentials: NextPageWithLayout = () => {
                   </TRow>
                 </THead>
                 <TBody>
-                  {Object.entries(data).map(([key, value], index) => (
-                    <TRow
-                      key={index}
-                      className={twMerge(
-                        "cursor-default capitalize",
-                        index % 2 === 0 && "bg-[#00000020]"
-                      )}
-                    >
-                      <TBCell className="py-6 px-4 md:px-12 sm:w-full">
-                        {key}
-                      </TBCell>
-                      <TBCell className="px-4 md:px-12 sm:w-full">
-                        {value}
-                      </TBCell>
-                    </TRow>
-                  ))}
+                  {data.map((credentail) =>
+                    Object.entries(credentail.attrs).map(
+                      ([key, value], index) => (
+                        <TRow
+                          key={index}
+                          className={twMerge(
+                            "cursor-default capitalize",
+                            index % 2 === 0 && "bg-[#00000020]"
+                          )}
+                        >
+                          <TBCell className="py-6 px-4 md:px-12 sm:w-full">
+                            {key}
+                          </TBCell>
+                          <TBCell className="px-4 md:px-12 sm:w-full">
+                            {value}
+                          </TBCell>
+                        </TRow>
+                      )
+                    )
+                  )}
                 </TBody>
               </Table>
             </div>

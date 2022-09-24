@@ -2,10 +2,12 @@ import { useQuery } from "react-query";
 import { axios } from "../../lib/axios";
 
 export type CredentialResponse = {
-  [key: string]: string;
+  attrs: {
+    [key: string]: string;
+  };
 };
 
-const fetchCredentials = (): Promise<CredentialResponse> => {
+const fetchCredentials = (): Promise<CredentialResponse[]> => {
   return axios.get("/credentials");
 };
 

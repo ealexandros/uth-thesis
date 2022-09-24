@@ -5,6 +5,7 @@ services:
     image: bcgovimages/aries-cloudagent:py36-1.16-1_1.0.0-rc0
     ports:
       - "5003:5003"
+      - "5002:5002"
     command: start --arg-file ./acme.yml
     volumes:
       - ${PWD}/config/acme.yml:/home/indy/acme.yml

@@ -6,11 +6,9 @@ export type PresentationResponse = {
   role: string;
   label: string;
   presentation_exchange_id: string;
-  revealed_attrs?:
-    | {
-        [key: string]: string;
-      }
-    | {};
+  revealed_attrs?: {
+    [key: string]: string;
+  };
   requested_attrs?: string[];
 };
 

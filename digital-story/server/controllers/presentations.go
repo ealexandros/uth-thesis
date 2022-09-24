@@ -12,7 +12,7 @@ func RegisterPresentations(e *echo.Echo, s *services.Presentations) {
 	e.POST("/presentations/request", r.sendPresentationRequest)
 	e.POST("/presentations/:pre_ex_id", r.sendPresentationProof)
 	e.GET("/presentations", r.getPresentationRecords)
-	e.DELETE("/presentations/:pre_ex_id", r.getPresentationRecords)
+	e.DELETE("/presentations/:pre_ex_id", r.deletePresentationRecord)
 }
 
 func (r presentations) sendPresentationProof(c echo.Context) error {

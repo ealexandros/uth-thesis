@@ -50,7 +50,18 @@ const TableRows = ({
   >
     <TBCell className="py-6">{presentation.label}</TBCell>
     <TBCell className="py-6 whitespace-pre-line capitalize">
-      {presentation.requested_attrs?.join("\n") || "-/-"}
+      {presentation.requested_attrs
+        ?.map((attr) => {
+          if (
+            presentation.revealed_attrs &&
+            presentation.revealed_attrs[attr]
+          ) {
+            return `${attr}: ${presentation.revealed_attrs[attr] || ""}`;
+          }
+
+          return attr;
+        })
+        .join("\n")}
     </TBCell>
     <TBCell className="py-6 capitalize">
       {presentation.state.replace("_", " ")}
