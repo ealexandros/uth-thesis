@@ -12,7 +12,7 @@ func RegisterPresentations(e *echo.Echo, s *services.Presentations) {
 	e.POST("/presentations/request", r.sendPresentationRequest)
 	e.POST("/presentations/:pre_ex_id", r.sendPresentationProof)
 	e.GET("/presentations", r.getPresentationRecords)
-	e.DELETE("/presentations/:pre_ex_id", r.deletePresentationRecord)
+	e.DELETE("/presentations/:pre_ex_id", r.rejectPresentationRecord)
 }
 
 func (r presentations) sendPresentationProof(c echo.Context) error {
@@ -55,10 +55,10 @@ func (r presentations) sendPresentationRequest(c echo.Context) error {
 	return c.NoContent(http.StatusCreated)
 }
 
-func (r presentations) deletePresentationRecord(c echo.Context) error {
+func (r presentations) rejectPresentationRecord(c echo.Context) error {
 	presRecID := c.Param("pre_ex_id")
 
-	if err := r.s.DeletePresentationRecord(presRecID); err != nil {
+	if err := r.s.RejectPresentationRecord(presRecID); err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error()).SetInternal(err)
 	}
 

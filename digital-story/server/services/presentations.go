@@ -3,6 +3,7 @@ package services
 import (
 	"github.com/ldej/go-acapy-client"
 	"github.com/pkg/errors"
+	"strings"
 )
 
 type Presentations struct {
@@ -84,6 +85,7 @@ func (s *Presentations) getPresentationRecords(filter func(a acapy.PresentationE
 			PresExchangeID: p.PresentationExchangeID,
 			RevAttrs:       reqAttrs,
 			ReqAttrs:       revAttrs,
+			ErrMsg:         s.parseErrMsg(p.ErrorMsg),
 		})
 	}
 	return res, nil
@@ -140,8 +142,26 @@ func (s *Presentations) SendPresentationProof(preID string) error {
 
 }
 
-func (s *Presentations) DeletePresentationRecord(preID string) error {
-	return s.a.RemovePresentationExchangeByID(preID)
+func (s *Presentations) RejectPresentationRecord(preID string) error {
+	return s.a.SendPresentationProblemReportForID(preID, "John has rejected the request")
+}
+
+// parseErrMsg is a dummy way to parse messages, it should be replaced
+// by proper status codes
+func (s *Presentations) parseErrMsg(msg string) string {
+	splits := strings.Split(msg, ":")
+	if len(splits) < 2 {
+		return msg
+	}
+
+	trimmed := strings.TrimSpace(splits[1])
+	// indicates that no error message has been posted
+	if trimmed == "abandoned" {
+		return "Invalid schema or issuer ID"
+
+	}
+
+	return trimmed
 }
 
 func NewPresentations(a *acapy.Client) *Presentations {

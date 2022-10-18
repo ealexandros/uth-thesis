@@ -15,6 +15,7 @@ type PresentationRecord struct {
 	Role           string            `json:"role"`
 	Label          string            `json:"label"`
 	PresExchangeID string            `json:"presentation_exchange_id"`
+	ErrMsg         string            `json:"error_message,omitempty"`
 	RevAttrs       map[string]string `json:"revealed_attrs"`
 	ReqAttrs       []string          `json:"requested_attrs"`
 }

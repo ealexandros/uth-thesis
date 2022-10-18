@@ -3,8 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev:john": "dotenv -e .env.john next dev",
-    "dev:acme": "dotenv -e .env.acme next dev",
+    "dev:john": "NEXT_PUBLIC_API_URL=http://localhost:5001 NEXT_PUBLIC_PROFILE_NAME=\"Acme Corp.\" NEXT_PUBLIC_PROFILE_IMAGE_URL=\"/acme.jpg\" ENTITY=acme PORT=5005 next dev",
     "build:john": "dotenv -e .env.john next build",
     "build:acme": "dotenv -e .env.acme next build",
     "start:john": "next start",

@@ -1,4 +1,4 @@
-import { Empty, message } from "antd";
+import { Empty, message, Tooltip } from "antd";
 import { useFetchConnectionsQuery } from "api/connections/fetchConnections";
 import {
   PresentationResponse,
@@ -14,7 +14,9 @@ import { Table, TBCell, TBody, THCell, THead, TRow } from "components/Table";
 import { Form, Formik, FormikHelpers } from "formik";
 import { queryClient } from "lib/react-query";
 import Head from "next/head";
+import { useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
+import { BiErrorCircle } from "react-icons/bi";
 import { RiTruckLine } from "react-icons/ri";
 import { twMerge } from "tailwind-merge";
 import { NextPageWithLayout } from "types";
@@ -44,30 +46,47 @@ const TableRows = ({
 }: {
   presentation: PresentationResponse;
   index: number;
-}) => (
-  <TRow
-    className={twMerge("cursor-default", index % 2 === 0 && "bg-[#00000020]")}
-  >
-    <TBCell className="py-6">{presentation.label}</TBCell>
-    <TBCell className="py-6 whitespace-pre-line capitalize">
-      {presentation.requested_attrs
-        ?.map((attr) => {
-          if (
-            presentation.revealed_attrs &&
-            presentation.revealed_attrs[attr]
-          ) {
-            return `${attr}: ${presentation.revealed_attrs[attr] || ""}`;
-          }
+}) => {
+  const [showTooltip, setShowTooltip] = useState(false);
 
-          return attr;
-        })
-        .join("\n")}
-    </TBCell>
-    <TBCell className="py-6 capitalize">
-      {presentation.state.replace("_", " ")}
-    </TBCell>
-  </TRow>
-);
+  return (
+    <TRow
+      className={twMerge("cursor-default", index % 2 === 0 && "bg-[#00000020]")}
+    >
+      <TBCell className="py-6">{presentation.label}</TBCell>
+      <TBCell className="py-6 whitespace-pre-line capitalize">
+        {presentation.requested_attrs
+          ?.map((attr) => {
+            if (
+              presentation.revealed_attrs &&
+              presentation.revealed_attrs[attr]
+            ) {
+              return `${attr}: ${presentation.revealed_attrs[attr] || ""}`;
+            }
+
+            return attr;
+          })
+          .join("\n")}
+      </TBCell>
+      <TBCell className="py-6 capitalize">
+        {presentation.state === "abandoned" ? (
+          <div className="flex justify-center space-x-2 items-center">
+            <div>{presentation.state}</div>
+            <Tooltip color="#B05F60" title={presentation.error_message}>
+              <BiErrorCircle
+                onMouseEnter={() => setShowTooltip(true)}
+                className="text-md"
+                style={{ color: "#B05F60" }}
+              />
+            </Tooltip>
+          </div>
+        ) : (
+          presentation.state.replace("_", " ")
+        )}
+      </TBCell>
+    </TRow>
+  );
+};
 
 const Verifier: NextPageWithLayout = () => {
   const connections = useFetchConnectionsQuery();
